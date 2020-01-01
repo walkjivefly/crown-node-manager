@@ -91,8 +91,8 @@ class Node {
 		$this->mempoolUsageP = calcMpUsage($this->mempoolUsage,$this->maxMempool);
 		$this->mempoolLimited = checkMemPoolLimited($this->mempoolMinFee, $this->minRelayFee);
 		// Traffic
-		$this->tIn = round(bytesToMb($tInfo["totalbytesrecv"])/1000,2);
-		$this->tOut = round(bytesToMb($tInfo["totalbytessent"])/1000,2);
+		$this->tIn = round(bytesToMb($tInfo["totalbytesrecv"]),2);
+		$this->tOut = round(bytesToMb($tInfo["totalbytessent"]),2);
 		$this->tTotal = $this->tIn + $this->tOut;
 		$this->tLimitSet = getTrafficLimitSet($tInfo["uploadtarget"]["target"]);
 		$this->tLimited = checkBool($tInfo["uploadtarget"]["target_reached"]);
@@ -110,7 +110,7 @@ class Node {
 		$this->bHeightAgo = round((time()-checkInt($blockInfo["time"]))/60,1);
 		
 		$this->diff = checkInt($blockchainInfo["difficulty"]);
-		$this->hashRate = round(checkInt($miningInfo["networkhashps"])/1000000000000000000,3);
+		$this->hashRate = round(checkInt($miningInfo["networkhashps"])/1000000,3);
 		$this->mNetTime = getDateTime($blockchainInfo["mediantime"]);
 		// Blockchain -> Soft forks
 		$this->softForks = checkSoftFork($blockchainInfo["bip9_softforks"]);	
