@@ -53,7 +53,9 @@ function createPeerContent(){
 function createBanListContent(){
 	global $bitcoind, $error;
 
-	$banlist = $bitcoind->listbanned();
+        // Crown doesn't (yet) support listbanned RPC, fake empty result
+	//$banlist = $bitcoind->listbanned();
+        $banlist = '';
 
 	$content = [];
 	$lastCount = 0;
