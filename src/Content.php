@@ -301,8 +301,6 @@ function createUnspentContent(){
 	$content["utxo"][$i]["amount"] = $unspent["amount"];
 	$content["utxo"][$i]["confs"] = $unspent["confirmations"];
 	$content["utxo"][$i]["spendable"] = $unspent["spendable"];
-	$content["utxo"][$i]["solvable"] = $unspent["solvable"];
-	$content["utxo"][$i]["safe"] = $unspent["safe"];
 	$content['node'] = new Node();
 
 	$i++;
