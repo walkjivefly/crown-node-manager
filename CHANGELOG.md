@@ -1,7 +1,6 @@
-Bitcoin Node Manager Changelog
+Crown Node Manager Changelog
 ===================
 
-## 0.2.1 Beta - 2018-07-12 Added Wallet Overview
-## 0.2.0 Beta - 2017-08-03
+## 0.1.0 Beta - 2020-01-03 Initial Crownification and reset version number
 
 ### First Release
