@@ -162,7 +162,6 @@ function createBlocksContent(){
 		$content["blocks"][$block["height"]]["versionhex"] = "N/A";
 		$content["blocks"][$block["height"]]["voting"] = "N/A";
 		$content["blocks"][$block["height"]]["time"] = getDateTime($block["time"]);
-		$content["blocks"][$block["height"]]["mediantime"] = getDateTime($block["time"]);
 		$content["blocks"][$block["height"]]["timeago"] = round((time() - $block["time"])/60);
 		$content["blocks"][$block["height"]]["coinbasetx"] = $block["tx"][0];
 		$content["blocks"][$block["height"]]["coinstaketx"] = $block["tx"][1];
@@ -222,7 +221,6 @@ function createForksContent(){
 			$content["blocks"][$i]["voting"] = getVoting($block["versionHex"]);
 			$content["blocks"][$i]["time"] = getDateTime($block["time"]);
 			$lastTime = $block["time"];
-			$content["blocks"][$i]["mediantime"] = getDateTime($block["mediantime"]);
 			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/86400);
 			$content["blocks"][$i]["txcount"] = count($block["tx"]);
 

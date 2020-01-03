@@ -111,7 +111,6 @@ class Node {
 		
 		$this->diff = checkInt($blockchainInfo["difficulty"]);
 		$this->hashRate = round(checkInt($miningInfo["networkhashps"])/1000000,3);
-		$this->mNetTime = getDateTime($blockchainInfo["mediantime"]);
 		// Blockchain -> Soft forks
 		$this->softForks = checkSoftFork($blockchainInfo["bip9_softforks"]);	
 		// Wallet Function
