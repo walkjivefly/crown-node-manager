@@ -61,9 +61,8 @@
 						  <th>Hash</th>
 						  <th>Status</th>
 						  <th>Time</th>
-						  <th>Lenght</th>
+						  <th>Length</th>
 						  <th>Size <span style="font-weight:normal;">(KB)</span></th>
-						  <th>Voting</th>
 						  <th style="width:70px;">Info</th>
 					  </thead>
 						</tr>
@@ -78,15 +77,8 @@
 									<td><?= $block["hash"] ?></td>   
 									<td><?= $block["status"] ?></td>
 									<td><?= (isset($block["time"])) ? $block["time"]." <small>(".$block["timeago"]." days ago)</small>"  : "" ?></td>
-									<td><?= $block['forklenght'] ?></td>
+									<td><?= $block['forklength'] ?></td>
 									<td><?= (isset($block["size"])) ? $block["size"] : "" ?></td>	
-									<td><?php
-									if(!empty($block['voting'])){
-										foreach($block['voting'] as $key => $vote){
-											echo '<button type="button" class="btn btn-default btn-xs">'.$key.'</button>';
-										}	
-									} ?>
-									</td>										
 									<td>																						
 										<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
 											<button type="button" class="btn btn-default btn-xs">Details</button>
@@ -95,8 +87,11 @@
 												<span class="sr-only">Toggle Dropdown</span>
 										</button>
 										<ul class="dropdown-menu">
-											<li><a href="https://blockchain.info/block/<?= $block["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Blockchain.info</a></li>
-										   </ul>
+											<li><a href="https://iquidus-01.crownplatform.com/block/<?= $block["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus</a></li>
+											<li><a href="https://insight-02.crownplatform.com/block/<?= $block["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight</a></li>
+											<li><a href="https://chainz.cryptoid.info/crw/block.dws?<?= $block["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Chainz</a></li>
+											<li><a href="http://xmn01:3001/block/<?= $block["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Testnet</a></li>
+ 										</ul>
 										</div>										   
 									</td>										   
 								</tr>
