@@ -43,7 +43,7 @@ function createPeerContent(){
 	$content['cTraf'] = round($trafficC/1000,2);
 	$content['trafcin'] = round($trafficCIn/1000,2);
 	$content['trafcout'] = round($trafficCOut/1000,2);
-	$content['tTraf'] = ($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])/1000000000;
+	$content['tTraf'] = ($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])/1000000;
 	$content['cTrafP'] = round($content['cTraf']/$content['tTraf'],2)*100;
 	$content['geo'] = Config::PEERS_GEO;
 
@@ -138,6 +138,20 @@ function createBlocksContent(){
 	$content["totalSize"] = 0;
 	$content["segwitCount"] = 0;
 
+	// Get some stuff we'll need later. Shame I can't work out how to do this just once in the Node class 
+	// and have it available everywhere but that's OOP shite for you.
+	$blockchainInfo = $bitcoind->getblockchaininfo();
+	$network = $blockchainInfo["chain"];  // main or test or dev
+	if($network == "main"){
+		$basefee = 3.75;
+		$blocktime = 60;
+		$sbinterval = 43200;
+	}else{
+		$basefee = 1.875;
+		$blocktime = 90;
+		$sbinterval = 50;
+	}
+
 	$blockHash = $bitcoind->getbestblockhash();
 
 	for($i = 0; $i < Config::DISPLAY_BLOCKS; $i++){
@@ -145,19 +159,24 @@ function createBlocksContent(){
 		$content["blocks"][$block["height"]]["hash"] = $block["hash"];
 		$content["blocks"][$block["height"]]["size"] = round($block["size"]/1000,2);
 		$content["totalSize"] += $block["size"];
-		$content["blocks"][$block["height"]]["versionhex"] = $block["versionHex"];
-		$content["blocks"][$block["height"]]["voting"] = getVoting($block["versionHex"]);
-		$content["blocks"][$block["height"]]["asicboost"] = checkAsicBoost($block["versionHex"]);
+		$content["blocks"][$block["height"]]["versionhex"] = "N/A";
+		$content["blocks"][$block["height"]]["voting"] = "N/A";
 		$content["blocks"][$block["height"]]["time"] = getDateTime($block["time"]);
-		$content["blocks"][$block["height"]]["mediantime"] = getDateTime($block["mediantime"]);
+		$content["blocks"][$block["height"]]["mediantime"] = getDateTime($block["time"]);
 		$content["blocks"][$block["height"]]["timeago"] = round((time() - $block["time"])/60);
 		$content["blocks"][$block["height"]]["coinbasetx"] = $block["tx"][0];
+		$content["blocks"][$block["height"]]["coinstaketx"] = $block["tx"][1];
 		$coinbaseTx = $bitcoind->getrawtransaction($block["tx"][0], 1);
-		if($coinbaseTx["vout"][0]["value"] != 0){
-			$content["blocks"][$block["height"]]["fees"] = round($coinbaseTx["vout"][0]["value"] - 12.5, 4);
+		$coinstakeTx = $bitcoind->getrawtransaction($block["tx"][1], 1);
+		$coinbase = $coinbaseTx["vout"][1]["value"] + $coinbaseTx["vout"][2]["value"];
+		$coinstake = $coinstakeTx["vout"][0]["value"];
+		$superblock = $block["height"] % $sbinterval == 0;
+		if($superblock){
+			$content["blocks"][$block["height"]]["fees"] = 0;
 		}else{
-			$content["blocks"][$block["height"]]["fees"] = round($coinbaseTx["vout"][1]["value"] - 12.5, 4);
+			$content["blocks"][$block["height"]]["fees"] = round($coinbase + $coinstake - $basefee, 5);
 		}
+		//$content["blocks"][$block["height"]]["fees"] = $coinbase;
 		$content["totalFees"] += $content["blocks"][$block["height"]]["fees"];
 		$content["blocks"][$block["height"]]["txcount"] = count($block["tx"]);
 		$content["totalTx"] += $content["blocks"][$block["height"]]["txcount"];
@@ -169,7 +188,7 @@ function createBlocksContent(){
 	$content["avgFee"] = round($content["totalFees"]/Config::DISPLAY_BLOCKS,2);
 	$content["totalFees"] = round($content["totalFees"],2);
 	$content["numberOfBlocks"] = Config::DISPLAY_BLOCKS;
-	$content["timeframe"] = round(end($content["blocks"])["timeago"]/60,0);
+	$content["timeframe"] = round(end($content["blocks"])["timeago"]/$blocktime,0);
 
 	return $content;
 }
@@ -192,7 +211,7 @@ function createForksContent(){
 
 		$content["blocks"][$i]["height"] = $fork["height"];
 		$content["blocks"][$i]["hash"] = $fork["hash"];
-		$content["blocks"][$i]["forklenght"] = $fork["branchlen"];
+		$content["blocks"][$i]["forklength"] = $fork["branchlen"];
 		$content["blocks"][$i]["status"] = $fork["status"];
 		$content["blocks"][$i]["succeeded"] = $fork["height"];
 
