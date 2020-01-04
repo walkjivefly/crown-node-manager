@@ -3,34 +3,34 @@
 			<div class="panel-body">		  
 				<div class="row tile_count">
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
+					  <span class="count_top"><i class="fas fa-user-friends"></i> Total Connections</span>
 					  <div class="count"><?= $content['node']->toConn ?></div>
-					  <span class="count_bottom"><span class="green" ><i class="fa fa-plus"></i><?= $content['nPeers'] ?></span> New Peers</span>
+					  <span class="count_bottom"><span class="green" ><i class="fas fa-plus"></i><?= $content['nPeers'] ?></span> New Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-cloud-upload"></i> Total Upload Traffic</span>
+					  <span class="count_top"><i class="fas fa-cloud-upload-alt"></i> Total Upload Traffic</span>
 					  <div class="count"><?= ($content['node']->tOut >= 1000) ? round($content['node']->tOut/1000,2)." <small>GB</small>" : $content['node']->tOut." <small>MB</small>"?></div>
-					  <span class="count_bottom"><i class="fa fa-angle-right"></i><?= ($content['trafcout'] >= 1000) ? round($content['trafcout']/1000,2)." GB" : $content['trafcout']." MB"?></i> Current Peers</span>
+					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcout'] >= 1000) ? round($content['trafcout']/1000,2)." GB" : $content['trafcout']." MB"?></i> Current Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-cloud-download"></i> Total Download Traffic</span>
+					  <span class="count_top"><i class="fas fa-cloud-download-alt"></i> Total Download Traffic</span>
 					  <div class="count"><?= ($content['node']->tIn >= 1000) ? round($content['node']->tIn/1000,2)." <small>GB</small>" : $content['node']->tIn." <small>MB</small>"?></div>
-					  <span class="count_bottom"><i class="fa fa-angle-right"></i><?= ($content['trafcin'] >= 1000) ? round($content['trafcin']/1000,2)." GB" : $content['trafcin']." MB"?></i> Current Peers</span>
+					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcin'] >= 1000) ? round($content['trafcin']/1000,2)." GB" : $content['trafcin']." MB"?></i> Current Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-user fa-ban"></i> Banned Peers</span>
+					  <span class="count_top"><i class="fas fa-user-slash"></i> Banned Peers</span>
 					  <div class="count"><?= $content['bannedPeers'] ?></div>
-					  <span class="count_bottom"><i class="red"><i class="fa fa-plus"></i><?= $content['last24h'] ?></i> Last 24h</span>
+					  <span class="count_bottom"><i class="red"><i class="fas fa-plus"></i><?= $content['last24h'] ?></i> Last 24h</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-database"></i> TX in Mempool</span>
+					  <span class="count_top"><i class="fas fa-database"></i> TX in Mempool</span>
 					  <div class="count"><?= number_format($content['node']->mempoolTx) ?></div>
-					  <span class="count_bottom"><i class="<?= $content['node']->mempoolUsageP['color'] ?>"><i class="fa <?= $content['node']->mempoolUsageP['icon'] ?>"></i> <?= $content['node']->mempoolUsageP['value'] ?>%</i> Usage</span>
+					  <span class="count_bottom"><i class="<?= $content['node']->mempoolUsageP['color'] ?>"><i class="fas <?= $content['node']->mempoolUsageP['icon'] ?>"></i> <?= $content['node']->mempoolUsageP['value'] ?>%</i> Usage</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-cube orange"></i> Lastest Block</span>
+					  <span class="count_top"><i class="fas fa-cube orange"></i> Lastest Block</span>
 					  <div class="count"><?= $content['node']->bHeight ?></div>
-					  <span class="count_bottom"><i class="oranges"><i class="fa fa-clock-o"></i> <?= $content['node']->bHeightAgo ?> m</i> ago</span>
+					  <span class="count_bottom"><i class="oranges"><i class="fas fa-clock-o"></i> <?= $content['node']->bHeightAgo ?> m</i> ago</span>
 					</div>
 				</div>
 			</div>
@@ -53,19 +53,19 @@
 				<div class="x_title">
 				  <h2>Node</h2>
 				  <ul class="nav navbar-right panel_toolbox">
-					<li><a class="close-link"><i class="fa fa-close"></i></a>
+					<li><a class="close-link"><i class="fas fa-times"></i></a>
 					</li>
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					<li><a class="collapse-link"><i class="fas fa-chevron-up"></i></a>
 					</li>
 				  </ul>
 				  <div class="clearfix"></div>
 				</div>
 				<div class="x_content">
 				  <table class="mempooltable">
-				  <tr><td style="width:40%;"><i class="fa fa-id-card-o fa-fw"></i> Client </td><td><?= $content['node']->client ?></td></tr>
-				  <tr><td><i class="fa fa-exchange fa-fw"></i> Protocol </td><td> <?= $content['node']->proVer ?></td></tr>
-				  <tr><td><i class="fa fa-wifi fa-fw"></i> Port </td><td> <?= $content['node']->port ?></td></tr>
-				  <tr><td><i class="fa fa-bullhorn fa-fw"></i> Services </td><td>
+				  <tr><td style="width:40%;"><i class="fas fa-id-card fa-fw"></i> Client </td><td><?= $content['node']->client ?></td></tr>
+				  <tr><td><i class="fas fa-exchange-alt fa-fw"></i> Protocol </td><td> <?= $content['node']->proVer ?></td></tr>
+				  <tr><td><i class="fas fa-wifi fa-fw"></i> Port </td><td> <?= $content['node']->port ?></td></tr>
+				  <tr><td><i class="fas fa-bullhorn fa-fw"></i> Services </td><td>
 					<?php if(isset($content['node']->services['Network'])){ ?><button type="button" class="btn btn-default btn-xs">Network</button><?php } ?> 
 					<?php if(isset($content['node']->services['Bloom'])){ ?><button type="button" class="btn btn-default btn-xs">Bloom</button><?php } ?> 
 					<?php if(isset($content['node']->services['Witness'])){ ?><button type="button" class="btn btn-default btn-xs">Witness</button><?php } ?>
@@ -73,17 +73,17 @@
 					<?php if(isset($content['node']->services['None'])){ ?><button type="button" class="btn btn-default btn-xs">None</button><?php } ?> 
 					<?php if(isset($content['node']->services['Unknown'])){ ?><button type="button" class="btn btn-default btn-xs">Unknown</button><?php } ?>					  
 				  </td></tr>
-				  <tr><td><i class="fa fa-clock-o fa-fw"></i> Node Time </td><td> <?= $content['node']->cTime ?></td></tr>
-				  <tr><td><i class="fa <?php echo (isset($content['node']->ipv4) ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv4 </td><td> <?php echo (isset($content['node']->ipv4) ? $content['node']->ipv4 : "No") ?></td></tr>				  
-				  <tr><td><i class="fa <?php echo (isset($content['node']->ipv6) ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv6 </td><td> <?php echo (isset($content['node']->ipv6) ? $content['node']->ipv6 : "No") ?></td></tr>
-				  <tr><td><i class="fa <?php echo (isset($content['node']->tor) ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> Tor </td><td> <?php echo (isset($content['node']->tor) ? $content['node']->tor : "No") ?></td></tr>
-				  <tr><td><i class="fa <?php echo (!$content['node']->pruMode ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Pruning Mode</td><td> <?php echo ($content['node']->pruMode ? "Yes" : "No") ?></td></tr>
-				  <tr><td><i class="fa <?php echo ($content['node']->localRelay ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Block Only Mode</td><td> <?php echo ($content['node']->localRelay ? "No" : "Yes") ?></td></tr>				  
-				  <tr><td><i class="fa <?php echo (!$content['node']->mempoolLimited ? "fa-square-o green" : "fa-warning red") ?> fa-fw"></i> Mempool Limited</td><td> <?php echo ($content['node']->mempoolLimited ? "Yes" : "No") ?></td></tr>
-				  <tr><td><i class="fa <?php echo (!$content['node']->tLimitSet ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Traffic Limit Set</td><td> <?php echo ($content['node']->tLimitSet ? "Yes" : "No") ?></td></tr>
+				  <tr><td><i class="fas fa-clock fa-fw"></i> Node Time </td><td> <?= $content['node']->cTime ?></td></tr>
+				  <tr><td><i class="far <?php echo (isset($content['node']->ipv4) ? "fa-check-square green" : "fa-square") ?> fa-fw"></i> IPv4 </td><td> <?php echo (isset($content['node']->ipv4) ? $content['node']->ipv4 : "No") ?></td></tr>				  
+				  <tr><td><i class="far <?php echo (isset($content['node']->ipv6) ? "fa-check-square green" : "fa-square") ?> fa-fw"></i> IPv6 </td><td> <?php echo (isset($content['node']->ipv6) ? $content['node']->ipv6 : "No") ?></td></tr>
+				  <tr><td><i class="far <?php echo (isset($content['node']->tor) ? "fa-check-square green" : "fa-square") ?> fa-fw"></i> Tor </td><td> <?php echo (isset($content['node']->tor) ? $content['node']->tor : "No") ?></td></tr>
+				  <tr><td><i class="far <?php echo (!$content['node']->pruMode ? "fa-square green" : "fa-square") ?> fa-fw"></i> Pruning Mode</td><td> <?php echo ($content['node']->pruMode ? "Yes" : "No") ?></td></tr>
+				  <tr><td><i class="far <?php echo ($content['node']->localRelay ? "fa-square green" : "fa-check-square orange") ?> fa-fw"></i> Block Only Mode</td><td> <?php echo ($content['node']->localRelay ? "No" : "Yes") ?></td></tr>				  
+				  <tr><td><i class="far <?php echo (!$content['node']->mempoolLimited ? "fa-square green" : "fa-exclamation red") ?> fa-fw"></i> Mempool Limited</td><td> <?php echo ($content['node']->mempoolLimited ? "Yes" : "No") ?></td></tr>
+				  <tr><td><i class="far <?php echo (!$content['node']->tLimitSet ? "fa-square green" : "fa-check-square orange") ?> fa-fw"></i> Traffic Limit Set</td><td> <?php echo ($content['node']->tLimitSet ? "Yes" : "No") ?></td></tr>
 				  <?php if($content['node']->tLimitSet){ ?>
-				  <tr><td><i class="fa <?php echo (!$content['node']->tLimited ? "fa-square-o green" : "fa-warning red") ?> fa-fw"></i> Traffic Limited</td><td> <?php echo ($content['node']->tLimited ? "Yes" : "No") ?> <small>(<?= $content['node']->tUsed ?> / <?= $content['node']->tMax ?> MB - <?= $content['node']->tLimitP ?>%)</small></td></tr>
-				  <tr><td><i class="fa fa-clock-o fa-fw"></i> Time remaining </td><td> <?= $content['node']->tTimeLeft ?> min</td></tr>
+				  <tr><td><i class="far <?php echo (!$content['node']->tLimited ? "fa-square green" : "fa-exclamation red") ?> fa-fw"></i> Traffic Limited</td><td> <?php echo ($content['node']->tLimited ? "Yes" : "No") ?> <small>(<?= $content['node']->tUsed ?> / <?= $content['node']->tMax ?> MB - <?= $content['node']->tLimitP ?>%)</small></td></tr>
+				  <tr><td><i class="fas fa-clock-o fa-fw"></i> Time remaining </td><td> <?= $content['node']->tTimeLeft ?> min</td></tr>
 				  <?php } ?>
 				  </table>
 				</div>
@@ -97,18 +97,18 @@
 				<div class="x_title">
 				  <h2>Blockchain</h2>
 				  <ul class="nav navbar-right panel_toolbox">
-					<li><a class="close-link"><i class="fa fa-close"></i></a>
+					<li><a class="close-link"><i class="fas fa-times"></i></a>
 					</li>
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					<li><a class="collapse-link"><i class="fas fa-chevron-up"></i></a>
 					</li>
 				  </ul>
 				  <div class="clearfix"></div>
 				</div>
 				<div class="x_content" style="padding-bottom:2px">
 				  <table class="mempooltable">
-					  <tr><td style="width:60%;"><i class="fa fa-clone fa-fw"></i> Chain </td><td> <span class="badge"><?= $content['node']->chain ?></span></td></tr>
-					  <tr><td><i class="fa fa-key fa-fw"></i> Difficulty </td><td> <?= $content['node']->diff ?></td></tr>
-					  <tr><td><i class="fa fa-cogs fa-fw"></i> Hashrate </td><td> <?= $content['node']->hashRate ?> MH/s</td></tr>
+					  <tr><td style="width:60%;"><i class="fas fa-clone fa-fw"></i> Chain </td><td> <span class="badge"><?= $content['node']->chain ?></span></td></tr>
+					  <tr><td><i class="fas fa-key fa-fw"></i> Difficulty </td><td> <?= $content['node']->diff ?></td></tr>
+					  <tr><td><i class="fas fa-cogs fa-fw"></i> Hashrate </td><td> <?= $content['node']->hashRate ?> MH/s</td></tr>
 				  </table>
 				</div>
 			  </div> 
@@ -120,9 +120,9 @@
 				<div class="x_title">
 				  <h2>Softforks</h2>
 				  <ul class="nav navbar-right panel_toolbox">
-					<li><a class="close-link"><i class="fa fa-close"></i></a>
+					<li><a class="close-link"><i class="fas fa-times"></i></a>
 					</li>
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					<li><a class="collapse-link"><i class="fas fa-chevron-up"></i></a>
 					</li>
 				  </ul>
 				  <div class="clearfix"></div>
@@ -132,11 +132,11 @@
 				 if(!empty($content['node']->softForks)){
 					foreach($content['node']->softForks as $sfName => $sf) {?>
 						  <table class="mempooltable">
-							  <tr><td style="width:60%;"><i class="fa fa-id-card fa-fw"></i> Name </td><td> <span class="badge"><?= ucfirst($sfName) ?></span></td></tr>
-							  <tr><td><i class="fa fa-info fa-fw"></i> Status </td><td> Voting</td></tr>
-							  <tr><td><i class="fa fa-hourglass-start fa-fw"></i> Start </td><td> <?= $sf['timeout'] ?> <small>(<?= $sf['since'] ?>)</small></td></tr>
-							  <tr><td><i class="fa fa-hourglass-o fa-fw"></i> End </td><td> <?= $sf['startTime'] ?></td></tr>
-							  <tr><td><i class="fa fa-signal fa-fw"></i> Process </td><td> <?= $sf['process'] ?> %</td></tr>  						  
+							  <tr><td style="width:60%;"><i class="fas fa-id-card fa-fw"></i> Name </td><td> <span class="badge"><?= ucfirst($sfName) ?></span></td></tr>
+							  <tr><td><i class="fas fa-info fa-fw"></i> Status </td><td> Voting</td></tr>
+							  <tr><td><i class="fas fa-hourglass-start fa-fw"></i> Start </td><td> <?= $sf['timeout'] ?> <small>(<?= $sf['since'] ?>)</small></td></tr>
+							  <tr><td><i class="fas fa-hourglass fa-fw"></i> End </td><td> <?= $sf['startTime'] ?></td></tr>
+							  <tr><td><i class="fas fa-signal fa-fw"></i> Process </td><td> <?= $sf['process'] ?> %</td></tr>  						  
 						  </table>
   
 			<?php	}
@@ -156,9 +156,9 @@
 				<div class="x_title">
 				  <h2>Top Peer Clients</h2>
 				  <ul class="nav navbar-right panel_toolbox">
-					<li><a class="close-link"><i class="fa fa-close"></i></a>
+					<li><a class="close-link"><i class="fas fa-times"></i></a>
 					</li>
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					<li><a class="collapse-link"><i class="fas fa-chevron-up"></i></a>
 					</li>
 				  </ul>
 				  <div class="clearfix"></div>
@@ -206,8 +206,8 @@
 				<div class="x_title">
 				  <h2>Global Peer Distribution</h2>
 				  <ul class="nav navbar-right panel_toolbox">
-					<li><a class="close-link"><i class="fa fa-close"></i></a>
-					</li><li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					<li><a class="close-link"><i class="fas fa-times"></i></a>
+					</li><li><a class="collapse-link"><i class="fas fa-chevron-up"></i></a>
 					</li>
 
 				  </ul>

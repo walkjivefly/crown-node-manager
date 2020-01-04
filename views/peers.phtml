@@ -3,7 +3,7 @@
 			<div class="panel-body">
 				<div class="row tile_count">
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-user"></i> Total Peers</span>
+					  <span class="count_top"><i class="fas fa-user-friends"></i> Total Peers</span>
 					  <div class="count"><?= $content['tPeers'] ?></div>
 					  <span class="count_bottom"><span class="green" ><i class="fa fa-plus"></i><?= $content['nPeers'] ?></span> New Peers</span>
 					</div>
@@ -23,7 +23,7 @@
 					  <span class="count_bottom"><span style="color:orange;"><?= $content['mpIspC'] ?></span> Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-hourglass-start"></i> Segwit Support</span>
+					  <span class="count_top"><i class="fas fa-balance-scale"></i> Segwit Support</span>
 					  <div class="count"><?= $content['segWitP'] ?><small> %</small></div>
 					  <span class="count_bottom"><span><?= $content['segWitC'] ?></span> Peers</span>
 					</div>
@@ -55,7 +55,7 @@
 				  <div class="x_title">
 					<h2>Peers <small>Connected</small></h2>
 					<ul class="nav navbar-right panel_toolbox">
-					  <li><a class="close-link"><i class="fa fa-close"></i></a>
+					  <li><a class="close-link"><i class="fa fa-times"></i></a>
 					  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					  <li><a><i class="fa fa-question-circle-o" data-toggle="tooltip" data-html="true" data-placement="left" title="
 					  Click the 'Rules' button below to run rules."></i></a>
@@ -111,9 +111,9 @@
 													<span class="sr-only">Toggle Dropdown</span>
 											</button>
 											<ul class="dropdown-menu">
-												<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=86400&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock-o" style="color:darkred"></i> Ban 24 hours</a></li>
-												<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=2592000&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock-o" style="color:darkred"></i> Ban 30 days</a></li>
-												<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=31536000&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock-o" style="color:darkred"></i> Ban 365 days</a></li>
+												<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=86400&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock" style="color:darkred"></i> Ban 24 hours</a></li>
+												<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=2592000&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock" style="color:darkred"></i> Ban 30 days</a></li>
+												<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=31536000&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock" style="color:darkred"></i> Ban 365 days</a></li>
 												<li class="divider"></li>
 												<li><a href="?p=peers&c=disconnect&ip=<?=$peer->ipOriginal ?>&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-times" style="color:darkorange"></i> Disconnect</a></li>
 		  <?php if($content['geo'] AND !$peer->hosted){ ?> <li class="divider"></li>
