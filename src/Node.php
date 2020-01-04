@@ -87,7 +87,8 @@ class Node {
 		$this->mempoolSize =  round(checkInt($mempoolInfo["bytes"])/1000000,1);
 		$this->mempoolMinFee = checkInt($mempoolInfo["mempoolminfee"]);
 		$this->mempoolUsage = bytesToMb($mempoolInfo["usage"]);
-		$this->maxMempool = bytesToMb($mempoolInfo["maxmempool"]);
+		//$this->maxMempool = bytesToMb($mempoolInfo["maxmempool"]);
+		$this->maxMempool = 300;  // Use the default since actual value isn't available in RPC (yet)
 		$this->mempoolUsageP = calcMpUsage($this->mempoolUsage,$this->maxMempool);
 		$this->mempoolLimited = checkMemPoolLimited($this->mempoolMinFee, $this->minRelayFee);
 		// Traffic

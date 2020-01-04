@@ -236,14 +236,17 @@ function getTrafficLimitSet($target){
 
 function calcMpUsage($usage, $max){
 	$value = ceil(($usage/$max)*100);
-	if($value <= 50){
-		$icon = "fa-battery-1";
+	if($value == 0){
+		$icon = "fa-battery-empty";
+		$color = "green";
+	}elseif($value <= 50){
+		$icon = "fa-battery-half";
 		$color = "green";
 	}elseif($value > 50 AND $value < 80){
-		$icon = "fa-battery-2";
+		$icon = "fa-battery-three-quarters";
 		$color = "orange";
 	}else{
-		$icon = "fa-battery-3";
+		$icon = "fa-battery-full";
 		$color = "red";		
 	}
 	$usageP = array('value' => $value, 'color' => $color, 'icon' => $icon);
