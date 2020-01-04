@@ -196,7 +196,6 @@ function createForksContent(){
 	global $bitcoind;
 
 	// Count forks in last 24h
-	$timeAgo = time()-86400;
 	$content["recentForks"] = 0;
 
 	$forks = $bitcoind->getchaintips();
@@ -224,7 +223,7 @@ function createForksContent(){
 			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/86400);
 			$content["blocks"][$i]["txcount"] = count($block["tx"]);
 
-			if($content["blocks"][$i]["time"] >= $timeAgo){
+			if($content["blocks"][$i]["timeago"] == 0){
 				$content["recentForks"]++;
 			}
 		}
