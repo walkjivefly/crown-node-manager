@@ -1,6 +1,6 @@
 # Crown Node Manager Beta
 
-![](https://i.imgur.com/Uc9TLOk.png)
+![](https://i.imgur.com/nIPPL2v.png)
 
 Crown Node Manager (CNM) is a lightweight dashboard and control system for your Crown node.
 
@@ -9,7 +9,7 @@ Crown Node Manager (CNM) is a lightweight dashboard and control system for your 
 
 * Extensive dashboard with general information about the node, connected peers and the blockchain
 * Overview of all connected peers inlcuding country, ISP, client, traffic usage, supported services...
-	* Ban or disconnect peers
+	* Ban or disconnect peers (afer the codebase update)
     * Manage a list of web hoster to detect if peer is hosted or private
 * Overview of the last received blocks
 * Overview of the last received forks (orphaned blocks / alternative chains)
@@ -42,13 +42,19 @@ IP protection doesn't work here. If you use `Apache` you are fine, since the fol
 ## Roadmap
 
 - [ ] Create rules to manage your peers (needs codebase update)
+
 		* Ban, disconnect or log peers that waste ressources, are slow or run old clients
 		* Set gobal events that trigger the execution of rules
 		* Run rules manually or set up a cron job
+
 - [ ] Overview of all banned peers (needs codebase update)
+
 		* Unban specific peers
 		* Export/Import your ban list
 		* Generate iptables rules (reject banned peers at OS level)
+
+## Suggested enhancements for community participation
+
 - [ ] Improve project structure
 - [ ] Improve error handling
 - [ ] Import rules functionality
