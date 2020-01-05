@@ -41,11 +41,11 @@ IP protection doesn't work here. If you use `Apache` you are fine, since the fol
 
 ## Roadmap
 
-- [ ] Create rules to manage your peers
+- [ ] Create rules to manage your peers (needs codebase update)
 		* Ban, disconnect or log peers that waste ressources, are slow or run old clients
 		* Set gobal events that trigger the execution of rules
 		* Run rules manually or set up a cron job
-- [ ] Overview of all banned peers
+- [ ] Overview of all banned peers (needs codebase update)
 		* Unban specific peers
 		* Export/Import your ban list
 		* Generate iptables rules (reject banned peers at OS level)
