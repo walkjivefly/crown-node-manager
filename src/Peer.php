@@ -50,7 +50,7 @@ class Peer{
 		$this->ipv6 = checkIfIpv6($this->ip);
 		$this->services = getServices($peer["services"]);
 		$this->servicesOriginal = checkServiceString($peer["services"]);
-		$this->relayTx = checkBool($peer["relaytxes"]);
+		//$this->relayTx = checkBool($peer["relaytxes"]);
 		if(isset($peer["feefilter"])){
 			$this->feeFilter = checkInt($peer["feefilter"]);
 		}else{
@@ -63,17 +63,17 @@ class Peer{
 		$this->traffic = $this->trafficOut + $this->trafficIn;
 		$this->connectTime = getDateTime($peer["conntime"]);
 		$this->age = round((time()-$peer["conntime"])/60);
-		$this->timeOffSet = checkInt($peer["timeoffset"]);
+		//$this->timeOffSet = checkInt($peer["timeoffset"]);
 		if(isset($peer["pingtime"])){
 			$this->ping = round(checkInt($peer["pingtime"]),2);
 		}else{
 			$this->ping = 0;
 		}
-		if(isset($peer["pingtime"])){
-			$this->minPing = checkInt($peer["minping"]);
-		}else{
+		//if(isset($peer["pingtime"])){
+		//	$this->minPing = checkInt($peer["minping"]);
+		//}else{
 			$this->minPing = 0;
-		}
+		//}
 		$this->version = checkInt($peer["version"]);
 		$this->client = getCleanClient($peer["subver"]);
 		$this->orgClient = htmlspecialchars($peer["subver"]);
@@ -87,8 +87,8 @@ class Peer{
 		$this->syncedBlocks = checkInt($peer["synced_blocks"]);
 		//$this->inflight = $peer["inflight"];
 		$this->whitelisted = checkBool($peer["whitelisted"]);
-		$this->bytessentPerMsg = checkArray($peer["bytessent_per_msg"]);
-		$this->bytesrecvPerMsg = checkArray($peer["bytesrecv_per_msg"]);		
+		//$this->bytessentPerMsg = checkArray($peer["bytessent_per_msg"]);
+		//$this->bytesrecvPerMsg = checkArray($peer["bytesrecv_per_msg"]);		
 	}			
 }
 ?>
