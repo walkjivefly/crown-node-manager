@@ -216,8 +216,8 @@ function createForksContent(){
 		if($fork["status"] != "headers-only" AND $fork["status"] != "unknown"){
 			$block = $bitcoind->getblock($fork["hash"]);
 			$content["blocks"][$i]["size"] = round($block["size"]/1000,2);
-			$content["blocks"][$i]["versionhex"] = $block["versionHex"];
-			$content["blocks"][$i]["voting"] = getVoting($block["versionHex"]);
+			//$content["blocks"][$i]["versionhex"] = $block["versionHex"];
+			//$content["blocks"][$i]["voting"] = getVoting($block["versionHex"]);
 			$content["blocks"][$i]["time"] = getDateTime($block["time"]);
 			$lastTime = $block["time"];
 			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/86400);
@@ -281,30 +281,30 @@ function createMempoolContent(){
 function createUnspentContent(){
 	global $bitcoind, $error;
 	
+	$content = [];
+	
 	try{
 		$unspents = $bitcoind->listunspent();
-	}catch(\Exception $e){
+	}catch(Exception $e){
 		$error = "Wallet disabled!";
-		return "";
+		return $content;
 	}
 	$i = 0;
-	$lastTime = 0;
 
 	foreach($unspents as $unspent){
 
-	$content["utxo"][$i]["hash"] = $unspent["txid"];
-	$content["utxo"][$i]["vout"] = $unspent["vout"];
-	$content["utxo"][$i]["address"] = $unspent["address"];
-	$content["utxo"][$i]["account"] = $unspent["account"];
-	$content["utxo"][$i]["scriptpubkey"] = $unspent["scriptPubKey"];
-	$content["utxo"][$i]["amount"] = $unspent["amount"];
-	$content["utxo"][$i]["confs"] = $unspent["confirmations"];
-	$content["utxo"][$i]["spendable"] = $unspent["spendable"];
-	$content['node'] = new Node();
+		$content["utxo"][$i]["hash"] = $unspent["txid"];
+		$content["utxo"][$i]["vout"] = $unspent["vout"];
+		$content["utxo"][$i]["address"] = $unspent["address"];
+		$content["utxo"][$i]["account"] = $unspent["account"];
+		$content["utxo"][$i]["scriptpubkey"] = $unspent["scriptPubKey"];
+		$content["utxo"][$i]["amount"] = $unspent["amount"];
+		$content["utxo"][$i]["confs"] = $unspent["confirmations"];
+		$content["utxo"][$i]["spendable"] = $unspent["spendable"];
+		$content['node'] = new Node();
 
-	$i++;
-	
-	
+		$i++;
+		
 	}
 	return $content;
 }
