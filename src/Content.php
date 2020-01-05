@@ -281,13 +281,13 @@ function createMempoolContent(){
 function createUnspentContent(){
 	global $bitcoind, $error;
 	
-	$content = [];
+	//$content = [];
 	
 	try{
 		$unspents = $bitcoind->listunspent();
-	}catch(Exception $e){
+	}catch(\Exception $e){
 		$error = "Wallet disabled!";
-		return $content;
+		return "";
 	}
 	$i = 0;
 

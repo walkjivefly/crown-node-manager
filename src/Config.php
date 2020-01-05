@@ -12,6 +12,7 @@ class Config {
     // If empty (""), any IP can access BNM. If "localhost", only localhost can access BNM. 
     // If specific IP (e.g. "84.12.32.297"), localhost and the specific IP can access BNM.
 	const ACCESS_IP = "localhost";	
+	const ACCESS_IP2 = "localhost";	
 	
 	
 	// IP of bitcoind RPC server. Usually localhost. Be careful with remote servers. The connection is not encrypted.

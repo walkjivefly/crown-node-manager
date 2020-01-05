@@ -3,8 +3,8 @@
 namespace App;
 
 ini_set('display_startup_errors',1); 
-ini_set('display_errors',1);
-error_reporting(1);
+ini_set('display_errors','on');  // 1
+error_reporting(11); // E_ALL
 
 require_once 'src/Autoloader.php';
 Autoloader::register();
@@ -98,7 +98,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 			if($err == 0){
 				try {
 					$result = $bitcoind->setban($ip, "add", $bantime);
-					// Sleep necessary otherwise peer is still returned by bitcoin core
+					// Sleep necessary otherwise peer is still returned by Crown core
 					sleep(1);
 					$message = "Peer successfully banned";
 				} catch (\Exception $e) {
@@ -114,7 +114,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 				$ip = $match[1];
 				try {
 					$result = $bitcoind->disconnectnode($ip);
-					// Sleep necessary otherwise peer is still returned by bitcoin core
+					// Sleep necessary otherwise peer is still returned by Crown core
 					sleep(1);
 					$message = "Peer successfully disconnected";
 				} catch (\Exception $e) {
