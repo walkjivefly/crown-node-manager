@@ -58,7 +58,7 @@ class Node {
 		$tInfo = $bitcoind->getnettotals();
 		
 		$this->blockHeight = checkInt($blockchainInfo["blocks"]);
-		$this->pruMode = checkBool($blockchainInfo["pruned"]);
+		$this->pruMode = false;   // after codebase upgrade    checkBool($blockchainInfo["pruned"]);
 		$this->chain = ucfirst(htmlspecialchars($blockchainInfo["chain"]));
 		// Gets different IPs
 		$ipAddresses =$networkInfo["localaddresses"];
@@ -77,7 +77,7 @@ class Node {
 		$this->client = str_replace('/','',htmlspecialchars($networkInfo["subversion"]));
 		$this->proVer = checkInt($networkInfo["protocolversion"]);
 		$this->services = getServices($networkInfo["localservices"]);
-		$this->localRelay = checkBool($networkInfo["localrelay"]);
+		$this->localRelay = false;   // after codebase upgrade   checkBool($networkInfo["localrelay"]);
 		$this->timeOffset = checkInt($networkInfo["timeoffset"]);
 		$this->port = checkInt($networkInfo["localaddresses"][0]["port"]);
 		$this->cTime = getDateTime($tInfo["timemillis"]/1000);
@@ -85,7 +85,7 @@ class Node {
 		//Mempool
 		$this->mempoolTx = checkInt($mempoolInfo["size"]);
 		$this->mempoolSize =  round(checkInt($mempoolInfo["bytes"])/1000000,1);
-		$this->mempoolMinFee = checkInt($mempoolInfo["mempoolminfee"]);
+		$this->mempoolMinFee = 0; // after codebase update   checkInt($mempoolInfo["mempoolminfee"]);
 		$this->mempoolUsage = bytesToMb($mempoolInfo["usage"]);
 		//$this->maxMempool = bytesToMb($mempoolInfo["maxmempool"]);
 		$this->maxMempool = 300;  // Use the default since actual value isn't available in RPC (yet)
@@ -95,11 +95,11 @@ class Node {
 		$this->tIn = round(bytesToMb($tInfo["totalbytesrecv"]),2);
 		$this->tOut = round(bytesToMb($tInfo["totalbytessent"]),2);
 		$this->tTotal = $this->tIn + $this->tOut;
-		$this->tLimitSet = getTrafficLimitSet($tInfo["uploadtarget"]["target"]);
-		$this->tLimited = checkBool($tInfo["uploadtarget"]["target_reached"]);
-		$this->tMax = bytesToMb($tInfo["uploadtarget"]["target"]);
-		$this->tUsed = round($this->tMax - bytesToMb($tInfo["uploadtarget"]["bytes_left_in_cycle"]),0);
-		$this->tTimeLeft = round(checkInt($tInfo["uploadtarget"]["time_left_in_cycle"])/60,1); // In minutes
+		$this->tLimitSet = false; // after codebase update  getTrafficLimitSet($tInfo["uploadtarget"]["target"]);
+		$this->tLimited = false; // after codebase update   checkBool($tInfo["uploadtarget"]["target_reached"]);
+		$this->tMax = 0; // after codebase update  bytesToMb($tInfo["uploadtarget"]["target"]);
+		$this->tUsed = 0; // after codebase update  round($this->tMax - bytesToMb($tInfo["uploadtarget"]["bytes_left_in_cycle"]),0);
+		$this->tTimeLeft = 0; // after codebase update  round(checkInt($tInfo["uploadtarget"]["time_left_in_cycle"])/60,1); // In minutes
 		if($this->tLimitSet){
 			$this->tLimitP = ceil(($this->tUsed/$this->tMax)*100);
 		}
@@ -113,14 +113,14 @@ class Node {
 		$this->diff = checkInt($blockchainInfo["difficulty"]);
 		$this->hashRate = round(checkInt($miningInfo["networkhashps"])/1000000,3);
 		// Blockchain -> Soft forks
-		$this->softForks = checkSoftFork($blockchainInfo["bip9_softforks"]);	
+		$this->softForks = ""; // after codebase upgrade  checkSoftFork($blockchainInfo["bip9_softforks"]);	
 		// Wallet Function
 		try{
 			$walletInfo = $bitcoind->getwalletinfo();
 			$this->walVer = checkInt($walletInfo["walletversion"]);	
 			$this->walBal = checkInt($walletInfo["balance"]);	
-			$this->waluBal = checkInt($walletInfo["unconfirmed_balance"]);	
-			$this->waliBal = checkInt($walletInfo["immature_balance"]);	
+			$this->waluBal = 0; // after codebase update  checkInt($walletInfo["unconfirmed_balance"]);	
+			$this->waliBal = 0; // after codebase update  checkInt($walletInfo["immature_balance"]);	
 			$this->walTxcount = checkInt($walletInfo["txcount"]);	
 			$this->walUnspent = checkInt($walletInfo["txcount"]);
 			$this->walActive = true;		

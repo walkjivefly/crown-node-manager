@@ -53,9 +53,9 @@ function createPeerContent(){
 function createBanListContent(){
 	global $bitcoind, $error;
 
-        // Crown doesn't (yet) support listbanned RPC, fake empty result
+    // Crown doesn't (yet) support listbanned RPC, fake empty result
 	//$banlist = $bitcoind->listbanned();
-        $banlist = '';
+    $banlist = [];
 
 	$content = [];
 	$lastCount = 0;
@@ -70,8 +70,8 @@ function createBanListContent(){
 	$totalBans = count($banlist);
 
 	foreach($banlist as &$ban){
-		 // In last 25h
-		if($ban['ban_created'] >= time()-24*3600){
+		// In last 24h
+		if($ban['ban_created'] >= time()-86400){
 			$lastCount++;
 		}
 		 // Auto/User Ban Count
@@ -103,13 +103,13 @@ function createBanListContent(){
 	}
 
 	// Calculate and format avergae ban time
-	$content['avgTime'] = round($avgTime/(86400*$totalBans),0);
+	$content['avgTime'] = 0; // after codebase update round($avgTime/(86400*$totalBans),0);
 
 	// Calculate percentage auto/user bans
 	$content['autoCount'] = $autoCount;
 	$content['userCount'] = $userCount;
-	$content['autoPer'] = round($autoCount/$totalBans,2)*100;
-	$content['userPer'] = round($userCount/$totalBans,2)*100;
+	$content['autoPer'] = 0; // after codebase update  round($autoCount/$totalBans,2)*100;
+	$content['userPer'] = 0; // after codebase update  round($userCount/$totalBans,2)*100;
 
 	$content['totalBans'] = $totalBans;
 	$content['lastCount'] = $lastCount;
