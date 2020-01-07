@@ -195,8 +195,7 @@ function createBlocksContent(){
 function createForksContent(){
 	global $bitcoind;
 
-	// Count forks in last 24h
-	$content["recentForks"] = 0;
+	$content["recentForks"] = 0;	// Count forks in last 24h
 
 	$forks = $bitcoind->getchaintips();
 	$i = 0;
@@ -220,19 +219,19 @@ function createForksContent(){
 			//$content["blocks"][$i]["voting"] = getVoting($block["versionHex"]);
 			$content["blocks"][$i]["time"] = getDateTime($block["time"]);
 			$lastTime = $block["time"];
-			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/86400);
+			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/3600);
 			$content["blocks"][$i]["txcount"] = count($block["tx"]);
 
-			if($content["blocks"][$i]["timeago"] == 0){
+			if($content["blocks"][$i]["timeago"] <= 24){
 				$content["recentForks"]++;
 			}
 		}
 		$i++;
 	}
 
-	// How far to go back (days)
-	$content["timeframe"] = round((time()-$lastTime)/86400);
-	$content["forkCount"] = Config::DISPLAY_FORKS;
+	$content["timeframe"] = round((time()-$lastTime)/3600);
+	$content["forkCount"] = Config::DISPLAY_FORKS - 1;	// Don't count most recent block as a fork
+	$content["recentForks"]--;	// Don't count most recent block as a fork
 
 	return $content;
 }
