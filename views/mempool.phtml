@@ -1,4 +1,4 @@
-	  <!-- Top Info Bar -->
+	<!-- Top Info Bar -->
 	<div class="panel panel-default">  
 		<div class="panel-body">
 			<div class="row tile_count">
@@ -50,7 +50,7 @@
 						  <th>Size (B)</th>
 						  <th>Fee</th>
 						  <th>Fee rate</th>
-						  <th>Descendants</th>
+						  <!-- <th>Descendants</th> -->
 						  <th style="width:7%;">Control</th>
 						</tr>
 					  </thead>
@@ -63,7 +63,7 @@
 										<td><?= $tx['size'] ?></td>
 										<td><?= sprintf('%.8F', $tx['fee']) ?></td>
 										<td><?= sprintf('%.8F', round((1000/$tx["size"])*$tx["fee"], 8)) ?></td>
-										<td><?= $tx['descendantcount'] ?></td>										
+										<!-- <td><?= $tx['descendantcount'] ?></td> -->										
 										<td> 
 											<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
 												<button type="button" class="btn btn-default btn-xs">Details</button>
