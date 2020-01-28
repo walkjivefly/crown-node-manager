@@ -38,5 +38,8 @@ class Config {
 	const DISPLAY_BLOCKS = 25;	
 	// Number of forks displayed on forks page
 	const DISPLAY_FORKS = 25;
-}
+	// Number of NFT protocols displayed on NFTs page
+	const DISPLAY_PROTOS = 10;
+	// Number of NFTs displayed on NFTs page
+	const DISPLAY_TOKENS = 25;
 ?>

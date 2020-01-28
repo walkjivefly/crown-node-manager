@@ -334,6 +334,18 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 	$content = createMempoolContent($end);
 	$data = array('section' => 'mempool', 'title' => 'Memory Pool', 'content' => $content);  
  
+// NFT protocols page 
+}elseif($_GET['p'] == "protocols") {
+
+	$content = createNftProtocolsContent();
+	$data = array('section' => 'protocols', 'title' => 'NFT protocols', 'content' => $content);  
+ 
+// NFT tokens page 
+}elseif($_GET['p'] == "nfts") {
+	
+	$content = createNftsContent();
+	$data = array('section' => 'nfts', 'title' => 'NFTs', 'content' => $content);  
+ 
  
 // Wallet Page
 }elseif($_GET['p'] == "wallet") {

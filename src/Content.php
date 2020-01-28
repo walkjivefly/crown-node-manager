@@ -277,6 +277,25 @@ function createMempoolContent(){
 	return $content;
 }
 
+function createNftProtocolsContent(){
+	global $bitcoind;
+
+	$content['nftProtocols'] = $bitcoind->nftproto('list');
+	$content['nftProtosCount'] = "N/A";
+	$content['nftCount'] = $bitcoind->nftoken('totalsupply');
+	$content['node'] = new Node();
+	return $content;
+}
+
+function createNftsContent(){
+	global $bitcoind;
+	$content['nftokens'] = $bitcoind->nftoken('list');
+	$content['nftProtosCount'] = "N/A";
+	$content['nftCount'] = $bitcoind->nftoken('totalsupply');
+	$content['node'] = new Node();
+	return $content;
+}
+
 function createUnspentContent(){
 	global $bitcoind, $error;
 	
