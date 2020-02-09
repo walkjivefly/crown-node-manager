@@ -42,4 +42,6 @@ class Config {
 	const DISPLAY_PROTOS = 10;
 	// Number of NFTs displayed on NFTs page
 	const DISPLAY_TOKENS = 25;
+	// Number of NFTs displayed on NFTs page
+	const DISPLAY_NODES = 9999;
 ?>

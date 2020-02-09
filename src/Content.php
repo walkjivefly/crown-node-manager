@@ -281,18 +281,62 @@ function createNftProtocolsContent(){
 	global $bitcoind;
 
 	$content['nftProtocols'] = $bitcoind->nftproto('list');
-	$content['nftProtosCount'] = "N/A";
+	try{
+		$content['nftProtosCount'] = $bitcoind->nftproto('totalsupply');
+	}catch(\Exception $e){
+		$content['nftProtosCount'] = "N/A";
+	}
 	$content['nftCount'] = $bitcoind->nftoken('totalsupply');
 	$content['node'] = new Node();
 	return $content;
 }
 
-function createNftsContent(){
+function createNftsContent($protocol = "*", $owner = "*", $height = "*", $count = 20, $skip = 0){
 	global $bitcoind;
-	$content['nftokens'] = $bitcoind->nftoken('list');
-	$content['nftProtosCount'] = "N/A";
+	$stuff = "'" . $protocol . ', ' . $owner . ', "' . (string)$height . '", "' . (string)$count . '", "' . (string)$skip . '"' . "'";
+	$stuff = "'" . $protocol . ', "' . $owner . '", "' . (string)$height . '", "' . (string)$count . '", "' . (string)$skip . '"' . "'";
+	echo nl2br("Listing " . $stuff);
+	$content['nftokens'] = $bitcoind->nftoken('list', $stuff);  //'oops, "*", "*", "1000"');
+	try{
+		$content['nftProtosCount'] = $bitcoind->nftproto('totalsupply');
+	}catch(\Exception $e){
+		$content['nftProtosCount'] = "N/A";
+	}
 	$content['nftCount'] = $bitcoind->nftoken('totalsupply');
 	$content['node'] = new Node();
+	return $content;
+}
+
+function createNodesContent($type){
+	global $bitcoind;
+
+	if($type == "MN"){
+		$nodes = $bitcoind->masternodelist('full');
+		$content["nodeCount"] = $bitcoind->masternode('count');
+		$content["EnabledCount"] = $bitcoind->masternode('count','enabled');
+		$LastWinner = $bitcoind->masternode('current');
+	}else{
+		$nodes = $bitcoind->systemnodelist('full');
+		$content["nodeCount"] = $bitcoind->systemnode('count');
+		$content["EnabledCount"] = $bitcoind->systemnode('count','enabled');
+		$LastWinner = $bitcoind->systemnode('current');
+	}
+
+	$content["LastWinner"] = $LastWinner["pubkey"];
+	$i = 0;
+	foreach($nodes as $txid => $node){
+		if($i == Config::DISPLAY_NODES){
+			break;
+		}
+		list($content["node"][$i]["txid"], $unused) = explode("-", $txid);
+		list($content["node"][$i]["status"],$content["node"][$i]["protocol"],$content["node"][$i]["address"],
+		$content["node"][$i]["IP"], $content["node"][$i]["lastseen"],$content["node"][$i]["activetime"],
+		$content["node"][$i]["lastpaid"]) = sscanf($node, "%s %s %s %s %d %d %d");
+		$content["node"][$i]["lastseen"] = getDateTime($content["node"][$i]["lastseen"]);
+		$content["node"][$i]["lastpaid"] = getDateTime($content["node"][$i]["lastpaid"]);
+		$i++;
+	}
+
 	return $content;
 }
 

@@ -342,10 +342,38 @@ if(empty($_GET) OR $_GET['p'] == "main") {
  
 // NFT tokens page 
 }elseif($_GET['p'] == "nfts") {
-	
-	$content = createNftsContent();
+	$p1 = "*";
+	$p2 = "*";
+	$p3 = "*";
+	$p4 = Config::DISPLAY_TOKENS;
+	$p5 = 0;
+	if(isset($_GET['proto'])){
+		$p1 = $_GET['proto'];
+	}
+	if(isset($_GET['owner'])){
+		$p2 = $_GET['owner'];
+	}
+	if(isset($_GET['height'])){
+		$p3 = $_GET['height'];
+	}
+	if(isset($_GET['count'])){
+		$p4 = $_GET['count'];
+	}
+	if(isset($_GET['skip'])){
+		$p5 = $_GET['skip'];
+	}
+	$content = createNftsContent($p1, $p2, $p3, $p4, $p5);
 	$data = array('section' => 'nfts', 'title' => 'NFTs', 'content' => $content);  
  
+// Masternodes Page
+}elseif($_GET['p'] == "masternodes") {
+	$content = createNodesContent("MN");
+	$data = array('section' => 'masternodes', 'title' => 'Masternodes', 'content' => $content);  
+ 
+// Systemnodes Page
+}elseif($_GET['p'] == "systemnodes") {
+	$content = createNodesContent("SN");
+	$data = array('section' => 'systemnodes', 'title' => 'Systemnodes', 'content' => $content);  
  
 // Wallet Page
 }elseif($_GET['p'] == "wallet") {
