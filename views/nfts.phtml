@@ -3,14 +3,14 @@
 			<div class="panel-body">
 				<div class="row tile_count">
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fas fa-user-friends"></i> NFT protocols</span>
+					  <span class="count_top"><i class="fas fa-folder-open"></i> NFT protocols</span>
 					  <div class="count"><?= $content['nftProtosCount'] ?></div>
-					  <span class="count_bottom"> Blurb here</span>
+					  <span class="count_bottom"> Registered</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-star" style="color:#EDDA74;"></i> NFTs count</span>
+					  <span class="count_top"><i class="fas fa-qrcode" style="color:#EDDA74;"></i> NFTs count</span>
 					  <div class="count"><?= $content['nftCount'] ?></div>
-					  <span class="count_bottom"> More blurb</span>
+					  <span class="count_bottom"> Registered</span>
 					</div>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2>Non-fungible tokens<small>More blah</small></h2>
+						<h2>Non-fungible tokens<small> (showing <?=$content['request'] ?>)</small></h2>
 						<ul class="nav navbar-right panel_toolbox">
 							<li><a class="close-link"><i class="fa fa-times"></i></a>
 							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -60,17 +60,16 @@
 										<td><?=$token['timestamp'] ?></td>
 										<td><?=$token['registrationTxHash'] ?></td>
 										<td>										   
-											<div class="btn-group pull-left" style="padding:5px 0 3px 0px; margin-bottom:0px">
-												<button type="button" class="btn btn-default btn-xs">Manage</button>
+											<div class="btn-group pull-right" style="padding:5px 0 3px 0px; margin-bottom:0px">
+												<button type="button" class="btn btn-default btn-xs">Info</button>
 												<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<span class="caret"></span>
 													<span class="sr-only">Toggle Dropdown</span>
 												</button>
 												<ul class="dropdown-menu">
-													<li><a href="?p=nfts"> Total Supply</a></li>
-													<li><a href="?p=nfts"> Balanceof</a></li>
-													<li><a href="?p=nfts"> All of these</a></li>
-													<li><a href="?p=nfts"> All by this owner</a></li>
+													<li><a href="?p=nfts&proto=<?= $token['nftProtocolId'] ?>" target="_blank">Same protocol</a></li>
+													<li><a href="?p=nfts&owner=<?= $token['nftOwnerKeyId'] ?>" target="_blank">Same owner</a></li>
+													<li><a href="?p=nfts&proto=<?= $token['nftProtocolId'] ?>&owner=<?= $token['nftOwnerKeyId'] ?>" target="_blank">Same protocol and owner</a></li>
 												    <li><a href="https://iquidus-01.crownplatform.com/tx/<?= $token['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus</a></li>
 													<li><a href="https://insight-02.crownplatform.com/tx/<?= $token['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight</a></li>
 													<li><a href="https://chainz.cryptoid.info/crw/tx.dws?<?= $token['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Chainz</a></li>
@@ -112,7 +111,7 @@
 			$('#nfts').DataTable( {
 				"paging":   false,
 				"bInfo": false,
-				"order": []
+				"order": [[ 3, "desc" ]]
 			} );		
 	  		});
 		</script>

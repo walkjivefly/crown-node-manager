@@ -277,10 +277,11 @@ function createMempoolContent(){
 	return $content;
 }
 
-function createNftProtocolsContent(){
+function createNftProtocolsContent($count = 20, $skip = 0, $height = "*", $txonly = FALSE){
 	global $bitcoind;
 
-	$content['nftProtocols'] = $bitcoind->nftproto('list');
+	$content['nftProtocols'] = $bitcoind->nftproto('list', $count, $skip, $height, $txonly);
+	$content['request'] = $count." ".$skip." ".$height." ".$txonly;
 	try{
 		$content['nftProtosCount'] = $bitcoind->nftproto('totalsupply');
 	}catch(\Exception $e){
@@ -291,12 +292,18 @@ function createNftProtocolsContent(){
 	return $content;
 }
 
-function createNftsContent($protocol = "*", $owner = "*", $height = "*", $count = 20, $skip = 0){
+function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0, $height = "*"){
 	global $bitcoind;
-	$stuff = "'" . $protocol . ', ' . $owner . ', "' . (string)$height . '", "' . (string)$count . '", "' . (string)$skip . '"' . "'";
-	$stuff = "'" . $protocol . ', "' . $owner . '", "' . (string)$height . '", "' . (string)$count . '", "' . (string)$skip . '"' . "'";
-	echo nl2br("Listing " . $stuff);
-	$content['nftokens'] = $bitcoind->nftoken('list', $stuff);  //'oops, "*", "*", "1000"');
+	$content['nftokens'] = $bitcoind->nftoken("list", $protocol, $owner, $count, $skip, $height);
+	$i = 0;
+	foreach($content["nftokens"] as $token){
+		if($i == Config::DISPLAY_TOKENS){
+			break;
+		}
+		$content["nftokens"][$i]["timestamp"] = getDateTime($token["timestamp"]);
+		$i++;
+	}
+	$content['request'] = $protocol." ".$owner." ".$count." ".$skip." ".$height;
 	try{
 		$content['nftProtosCount'] = $bitcoind->nftproto('totalsupply');
 	}catch(\Exception $e){

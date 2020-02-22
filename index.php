@@ -336,8 +336,23 @@ if(empty($_GET) OR $_GET['p'] == "main") {
  
 // NFT protocols page 
 }elseif($_GET['p'] == "protocols") {
-
-	$content = createNftProtocolsContent();
+	$p1 = (string)Config::DISPLAY_PROTOS;
+	$p2 = "0";
+	$p3 = "*";
+	$p4 = FALSE;
+	if(isset($_GET['count'])){
+		$p1 = $_GET['count'];
+	}
+	if(isset($_GET['skip'])){
+		$p2 = $_GET['skip'];
+	}
+	if(isset($_GET['height'])){
+		$p3 = $_GET['height'];
+	}
+	if(isset($_GET['txonly'])){
+		$p4 = $_GET['txonly'];
+	}
+	$content = createNftProtocolsContent($p1, $p2, $p3, $p4);
 	$data = array('section' => 'protocols', 'title' => 'NFT protocols', 'content' => $content);  
  
 // NFT tokens page 
