@@ -13,6 +13,7 @@ class Config {
     // If specific IP (e.g. "84.12.32.297"), localhost and the specific IP can access BNM.
 	const ACCESS_IP = "localhost";	
 	const ACCESS_IP2 = "localhost";	
+	const ACCESS_IP3 = "localhost";	
 	
 	
 	// IP of bitcoind RPC server. Usually localhost. Be careful with remote servers. The connection is not encrypted.
@@ -21,7 +22,9 @@ class Config {
 	const RPC_USER = "USERNAME";
 	// RPC password / rpcauth specified in bitcoin.conf
 	const RPC_PASSWORD = "PASSWORD";
-	
+
+	 // Debug RPC entries and exits
+	 const DEBUG = FALSE;
 	
 	// Use ip-api.com to get country, city and isp of peers. API is limited to 150 requests per minutes.
 	// Peer geo data is stored as long as the peer is connected. A page reload (main/peers) only 

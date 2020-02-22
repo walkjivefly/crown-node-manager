@@ -65,7 +65,7 @@ $trafficC = 0;
 $trafficCIn = 0;
 $trafficCOut = 0;
 $newPeersCount = 0;
-$bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/');
+$bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/', Config::DEBUG);
 
 // Content
 // Main Page
@@ -344,23 +344,23 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 }elseif($_GET['p'] == "nfts") {
 	$p1 = "*";
 	$p2 = "*";
-	$p3 = "*";
-	$p4 = Config::DISPLAY_TOKENS;
-	$p5 = 0;
+	$p3 = (string)Config::DISPLAY_TOKENS;
+	$p4 = "0";
+	$p5 = "*";
 	if(isset($_GET['proto'])){
 		$p1 = $_GET['proto'];
 	}
 	if(isset($_GET['owner'])){
 		$p2 = $_GET['owner'];
 	}
-	if(isset($_GET['height'])){
-		$p3 = $_GET['height'];
-	}
 	if(isset($_GET['count'])){
-		$p4 = $_GET['count'];
+		$p3 = $_GET['count'];
 	}
 	if(isset($_GET['skip'])){
-		$p5 = $_GET['skip'];
+		$p4 = $_GET['skip'];
+	}
+	if(isset($_GET['height'])){
+		$p5 = $_GET['height'];
 	}
 	$content = createNftsContent($p1, $p2, $p3, $p4, $p5);
 	$data = array('section' => 'nfts', 'title' => 'NFTs', 'content' => $content);  

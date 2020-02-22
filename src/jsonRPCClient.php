@@ -68,7 +68,7 @@ class jsonRPCClient {
 		// server URL
 		$this->url = $url;
 		// proxy
-		empty($proxy) ? $this->proxy = '' : $this->proxy = $proxy;
+		//empty($proxy) ? $this->proxy = '' : $this->proxy = $proxy;
 		// debug state
 		empty($debug) ? $this->debug = false : $this->debug = true;
 		// message id
@@ -98,7 +98,7 @@ class jsonRPCClient {
 		
 		// check
 		if (!is_scalar($method)) {
-			throw new Exception('Method name has no scalar value');
+			throw new \Exception('Method name has no scalar value');
 		}
 		
 		// check
@@ -106,7 +106,7 @@ class jsonRPCClient {
 			// no keys
 			$params = array_values($params);
 		} else {
-			throw new Exception('Params must be given as array');
+			throw new \Exception('Params must be given as array');
 		}
 		
 		// sets notification or request task
@@ -124,6 +124,7 @@ class jsonRPCClient {
 						);
 		$request = json_encode($request);
 		$this->debug && $this->debug.='***** Request *****'."\n".$request."\n".'***** End Of request *****'."\n\n";
+		//echo '***** Request *****'."\n".$request."\n".'***** End Of request *****'."\n\n";
 		
 		// performs the HTTP POST
 		$opts = array ('http' => array (
@@ -147,7 +148,7 @@ class jsonRPCClient {
 		
 		// debug output
 		if ($this->debug) {
-			echo nl2br($debug);
+			echo nl2br($this->debug);
 		}
 		
 		// final checks and return
