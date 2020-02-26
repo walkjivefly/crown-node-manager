@@ -382,7 +382,7 @@ function getMostPop($peers){
 	
 	// Count Client 2
 	arsort($clCountAr);
-	$result['mpCli'] = key($clCountAr);
+	$result['mpCli'] = substr(key($clCountAr),11,10);
 	$result['mpCliC'] = reset($clCountAr);
 	
 	if(CONFIG::PEERS_GEO){
