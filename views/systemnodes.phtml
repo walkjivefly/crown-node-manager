@@ -48,10 +48,10 @@
 						<table id="nodes" class="table table-bordered table-valign">
 							<thead>
 								<tr>
-							 		<th>Collateral txid</th>
+							 		<!-- <th>Collateral txid</th> -->
+									<th>Collateral address</th>
 							 		<th>Status</th>
 							 		<th>Protocol</th>
-									<th>Collateral address</th>
 									<th>IP address</th>
 									<th>Last seen</th>
 									<th>Time active</th>
@@ -62,17 +62,17 @@
 								<?php $i = 0;
 							  		foreach($content['node'] as $node){ ?>
 									<tr>
-										<td><?=$node['txid'] ?></td>
+										<!-- <td><?=$node['txid'] ?></td> -->
+										<td><?=$node['address'] ?></td>
 										<td><?=$node['status'] ?></td>
 										<td><?=$node['protocol'] ?></td>
-										<td><?=$node['address'] ?></td>
 										<td><?=$node['IP'] ?></td>
 										<td><?=$node['lastseen'] ?></td>
 										<td><?=$node['activetime'] ?></td>
 										<td><?=$node['lastpaid'] ?></td>
 										<td>										   
 											<div class="btn-group pull-left" style="padding:5px 0 3px 0px; margin-bottom:0px">
-												<button type="button" class="btn btn-default btn-xs">Manage</button>
+												<button type="button" class="btn btn-default btn-xs">Explore</button>
 												<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<span class="caret"></span>
 													<span class="sr-only">Toggle Dropdown</span>
