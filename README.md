@@ -14,10 +14,12 @@ Crown Node Manager (CNM) is a lightweight dashboard and control system for your 
 * Overview of the last received blocks
 * Overview of the last received forks (orphaned blocks / alternative chains)
 * Overview of the memory pool and containing transactions
+* Overview of NFT framework protocols and tokens
+* Overview of masternodes and systemnodes
 
 ## Requirements
 
-* Crown Core 0.13.4.0+
+* Crown Core 0.13.9.3+
 * Web server (e.g. Apache, PHP built-in web server)
 * PHP 7.0.0+
     * cURL
@@ -40,6 +42,21 @@ that an attacker will not guess). An attacker could "guess" your password, since
 IP protection doesn't work here. If you use `Apache` you are fine, since the folder is protected with `.htaccess` (make sure `AllowOverride All` is set in your `apache2.conf` file).
 
 ## Roadmap
+
+- [ ] Fix sorting/searching in protocol/NFT/MN/SN pages
+
+- [ ] NFT protocol and token pages enhancements
+
+        * Highlight own protocols/tokens
+		* Issue tokens from the protocols page
+		* Display full registration information for selected protocol/token (get)
+		* Display balanceof for a token
+		* Display token totalsupply for a particular protocol
+
+- [ ] Add geo-IP information to MN/SN pages
+
+		* Location in table
+		* Map per node type or one map with different colour markers for MN/SN
 
 - [ ] Create rules to manage your peers (needs codebase update)
 
@@ -65,3 +82,11 @@ IP protection doesn't work here. If you use `Apache` you are fine, since the fol
 - [ ] Highlight suspicious peers
 - [ ] Sort mempool tx, request more
 - [ ] Option to import blacklist of spy / resource wasting peers
+- [ ] Flag MNs/SNs in peers list
+- [ ] Flag own MNs/SNs on those pages
+
+## Donate
+
+If you find the Crown Node Manager useful please consider donating to 
+CRWD8e53sZcsL19b28UHqZmGndS4s6yr4gkf
+

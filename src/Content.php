@@ -304,12 +304,13 @@ function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0
 		$i++;
 	}
 	$content['request'] = $protocol." ".$owner." ".$count." ".$skip." ".$height;
+	$content['nftCount'] = $i;
 	try{
 		$content['nftProtosCount'] = $bitcoind->nftproto('totalsupply');
 	}catch(\Exception $e){
 		$content['nftProtosCount'] = "N/A";
 	}
-	$content['nftCount'] = $bitcoind->nftoken('totalsupply');
+	$content['totalsupply'] = $bitcoind->nftoken('totalsupply');
 	$content['node'] = new Node();
 	return $content;
 }
