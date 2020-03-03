@@ -1,16 +1,16 @@
 # Crown Node Manager Beta
 
-![](https://i.imgur.com/nIPPL2v.png)
+![](https://i.imgur.com/CyJAeUQ.png)
 
-Crown Node Manager (CNM) is a lightweight dashboard and control system for your Crown node.
+Crown Node Manager (CNM) is a lightweight dashboard and monitoring system for your Crown node.
 
 
 ## Features
 
 * Extensive dashboard with general information about the node, connected peers and the blockchain
 * Overview of all connected peers inlcuding country, ISP, client, traffic usage, supported services...
-	* Ban or disconnect peers (afer the codebase update)
-    * Manage a list of web hoster to detect if peer is hosted or private
+* Ban or disconnect peers (afer the codebase update)
+* Manage a list of web hosters to detect if peer is hosted or private
 * Overview of the last received blocks
 * Overview of the last received forks (orphaned blocks / alternative chains)
 * Overview of the memory pool and containing transactions
@@ -22,7 +22,7 @@ Crown Node Manager (CNM) is a lightweight dashboard and control system for your 
 * Crown Core 0.13.9.3+
 * Web server (e.g. Apache, PHP built-in web server)
 * PHP 7.0.0+
-    * cURL
+* cURL
 
 ## Installation
 
