@@ -1,6 +1,6 @@
 # Crown Node Manager Beta
 
-![](https://i.imgur.com/CyJAeUQ.png)
+![](https://i.imgur.com/x4FZMVC.png)
 
 Crown Node Manager (CNM) is a lightweight dashboard and monitoring system for your Crown node.
 
