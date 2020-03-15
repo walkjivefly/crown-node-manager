@@ -10,12 +10,12 @@
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-cloud-upload-alt"></i> Total Upload Traffic</span>
 					  <div class="count"><?= ($content['node']->tOut >= 1000) ? round($content['node']->tOut/1000,2)." <small>GB</small>" : $content['node']->tOut." <small>MB</small>"?></div>
-					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcout'] >= 1000) ? round($content['trafcout']/1000,2)." GB" : $content['trafcout']." MB"?></i> Current Peers</span>
+					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcout'] >= 1000) ? round($content['trafcout']/1000,2)." GB" : $content['trafcout']." MB"?> Current Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-cloud-download-alt"></i> Total Download Traffic</span>
 					  <div class="count"><?= ($content['node']->tIn >= 1000) ? round($content['node']->tIn/1000,2)." <small>GB</small>" : $content['node']->tIn." <small>MB</small>"?></div>
-					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcin'] >= 1000) ? round($content['trafcin']/1000,2)." GB" : $content['trafcin']." MB"?></i> Current Peers</span>
+					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcin'] >= 1000) ? round($content['trafcin']/1000,2)." GB" : $content['trafcin']." MB"?> Current Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-user-slash"></i> Banned Peers</span>

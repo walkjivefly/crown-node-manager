@@ -43,28 +43,28 @@
 			<!-- sidebar menu -->
 			<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 			  <div class="menu_section">
-				<ul class="nav side-menu">
-					<li><a href="?p=main" <?php if($this->section=="main") echo 'class="active"'; ?>><i class="fas fa-home"></i> Main </a></li>
-					<li><a href="?p=wallet" <?php if($this->section=="wallet") echo 'class="active"'; ?>><i class="fas fa-wallet"></i> Wallet </a></li>
-					<li><a href="?p=peers" <?php if($this->section=="peers") echo 'class="active"'; ?>><i class="fas fa-user-friends"></i> Peers </a></li>
-					<li><ul class="nav child_menu" style="display: block;">
+				<div class="nav side-menu">
+					<a href="?p=main" <?php if($this->section=="main") echo 'class="active"'; ?>><i class="fas fa-home"></i> Main </a>
+					<a href="?p=wallet" <?php if($this->section=="wallet") echo 'class="active"'; ?>><i class="fas fa-wallet"></i> Wallet </a>
+					<a href="?p=peers" <?php if($this->section=="peers") echo 'class="active"'; ?>><i class="fas fa-user-friends"></i> Peers </a>
+					<ul class="nav child_menu" style="display: block;">
 						<li <?php if($this->section=="rules") echo 'class="current-page"'; ?>><a href="?p=rules">Rules</a></li>
 						<li <?php if($this->section=="hoster") echo 'class="active"'; ?>><a href="?p=hoster">Hoster</a></li>
-					</ul></li>
-					<li><a href="?p=banlist" <?php if($this->section=="banlist") echo 'class="active"'; ?>><i class="fas fa-ban"></i> Ban List </a></li>
-					<li><a href="?p=blocks" <?php if($this->section=="blocks") echo 'class="active"'; ?>><i class="fas fa-cube"></i> Blocks</a></li>
-					<li><ul class="nav child_menu" style="display: block;">
+					</ul>
+					<a href="?p=banlist" <?php if($this->section=="banlist") echo 'class="active"'; ?>><i class="fas fa-ban"></i> Ban List </a>
+					<a href="?p=blocks" <?php if($this->section=="blocks") echo 'class="active"'; ?>><i class="fas fa-cube"></i> Blocks</a>
+					<ul class="nav child_menu" style="display: block;">
 						<li <?php if($this->section=="forks") echo 'class="active"'; ?>><a href="?p=forks">Forks</a></li>
-					</ul></li>
-					<li><a href="?p=mempool" <?php if($this->section=="mempool") echo 'class="active"'; ?>><i class="fas fa-database"></i> Memory Pool </a></li>
-					<li><a href="?p=protocols" <?php if($this->section=="protocols") echo 'class="active"'; ?>><i class="fas fa-folder-open"></i> NFT Protocols </a></li>
-					<li><a href="?p=nfts" <?php if($this->section=="nfts") echo 'class="active"'; ?>><i class="fas fa-qrcode"></i> NF tokens </a></li>
-					<li><a href="?p=masternodes" <?php if($this->section=="masternodes") echo 'class="active"'; ?>><i class="fas fa-sitemap"></i> Masternodes </a></li>
-					<li><a href="?p=systemnodes" <?php if($this->section=="systemnodes") echo 'class="active"'; ?>><i class="fas fa-sitemap"></i> Systemnodes </a></li>
-					<li><a href="?p=sporks" <?php if($this->section=="sporks") echo 'class="active"'; ?>><i class="fas fa-wrench"></i> Sporks </a></li>
-					<li><a href="?p=settings" <?php if($this->section=="settings") echo 'class="active"'; ?>><i class="fas fa-cog"></i> Settings </a></li>
-					<li><a href="?p=about" <?php if($this->section=="about") echo 'class="active"'; ?>><i class="fas fa-info"></i> About </a></li>
-				</ul>
+					</ul>
+					<a href="?p=mempool" <?php if($this->section=="mempool") echo 'class="active"'; ?>><i class="fas fa-database"></i> Memory Pool </a>
+					<a href="?p=protocols" <?php if($this->section=="protocols") echo 'class="active"'; ?>><i class="fas fa-folder-open"></i> NFT Protocols </a>
+					<a href="?p=nfts" <?php if($this->section=="nfts") echo 'class="active"'; ?>><i class="fas fa-qrcode"></i> NF tokens </a>
+					<a href="?p=masternodes" <?php if($this->section=="masternodes") echo 'class="active"'; ?>><i class="fas fa-sitemap"></i> Masternodes </a>
+					<a href="?p=systemnodes" <?php if($this->section=="systemnodes") echo 'class="active"'; ?>><i class="fas fa-sitemap"></i> Systemnodes </a>
+					<a href="?p=sporks" <?php if($this->section=="sporks") echo 'class="active"'; ?>><i class="fas fa-wrench"></i> Sporks </a>
+					<a href="?p=settings" <?php if($this->section=="settings") echo 'class="active"'; ?>><i class="fas fa-cog"></i> Settings </a>
+					<a href="?p=about" <?php if($this->section=="about") echo 'class="active"'; ?>><i class="fas fa-info"></i> About </a>
+				</div>
 			  </div>
 			</div>
 			<!-- /sidebar menu -->
