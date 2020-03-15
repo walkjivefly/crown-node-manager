@@ -5,12 +5,12 @@
 					<div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-code-branch"></i> Shown Forks</span>
 					  <div class="count"><?= $content["forkCount"] ?></div>
-					  <span class="count_bottom"><span>in last <?= $content["timeframe"] ?> hours</span></span>
+					  <span class="count_bottom">in last <?= $content["timeframe"] ?> hours</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-code-branch"></i> Forks</span>
 					  <div class="count"><?= $content["recentForks"] ?> </div>
-					  <span class="count_bottom"><span>in last 24 hours</span>
+					  <span class="count_bottom">in last 24 hours</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-code-branch" style="color:orange;"></i> Last Fork</span>
@@ -39,16 +39,14 @@
 			<!-- Content -->				   
 			<div class="row">
 			
-			<!-- Peer List -->
+			<!-- Forks List -->
 			  <div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="x_panel">
 				  <div class="x_title">
 					<h2>Forks <small>Alternative chains / Orphaned blocks</small></h2>
 					<ul class="nav navbar-right panel_toolbox">
-					  <li><a class="close-link"><i class="fa fa-times"></i></a>
-					  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					  </li>
-					  </li>
+					  <li><a class="close-link"><i class="fa fa-times"></i></a></li>
+					  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					</ul>
 					<div class="clearfix"></div>
 				  </div>
@@ -65,7 +63,6 @@
 						  <th>Size <span style="font-weight:normal;">(KB)</span></th>
 						  <th style="width:70px;">Info</th>
 					  </thead>
-						</tr>
 
 					  <tbody>
 						<?php $i = 0;
@@ -111,8 +108,6 @@
 	<!-- footer content -->
 	<?php include('views/footer.phtml') ?>
 	<!-- /footer content -->
-	</div>
-	</div>
 
 	<!-- jQuery -->
 	<script src="assets/js/jquery.min.js"></script>

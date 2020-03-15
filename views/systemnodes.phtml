@@ -96,10 +96,13 @@
 			</div>
 		</div>
 		<!-- /page content -->
+		</div>
 
 		<!-- footer content -->
 		<?php include('views/footer.phtml') ?>
 		<!-- /footer content -->
+		</div>
+		</div>
 
 		<!-- jQuery -->
 		<script src="assets/js/jquery.min.js"></script>
@@ -118,9 +121,11 @@
 		<script>
 	 		$(document).ready(function() {
 			$('#nodes').DataTable( {
-				"paging":   false,
+				"paging": true,
+				"lengthChange": true,
+				"lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 				"bInfo": false,
-				"order": [[ 3, "desc" ]]
+				"order": [[ 6, "desc" ]]
 			} );		
 	  		});
 		</script>

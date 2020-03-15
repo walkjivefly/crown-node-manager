@@ -23,10 +23,8 @@
 				  <div class="x_title">
 					<h2>Logs <small></small></h2>
 					<ul class="nav navbar-right panel_toolbox">
-					  <li><a class="close-link"><i class="fa fa-times"></i></a>
-					  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					  </li>
-					  </li>
+					  <li><a class="close-link"><i class="fa fa-times"></i></a></li>
+					  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					</ul>
 					<div class="clearfix"></div>
 				  </div>
@@ -45,10 +43,8 @@
 				  <div class="x_title">
 					<h2>Rules <small></small></h2>
 					<ul class="nav navbar-right panel_toolbox">
-					  <li><a class="close-link"><i class="fa fa-times"></i></a>
-					  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					  </li>
-					  </li>
+					  <li><a class="close-link"><i class="fa fa-times"></i></a></li>
+					  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					</ul>
 					<div class="clearfix"></div>
 				  </div>
@@ -136,7 +132,7 @@ In the last fourth row you need to speficy the global trigger event if you check
 						</div>
 						<div class="col-md-5 col-sm-5 col-xs-12 form-group" style="padding:0px 0px 8px 0px;">						
 							<input type="text" class="form-control" id="threshold"  name="threshold" <?= $content['editRule']->threshold ?> value="<?= $content['editRule']->threshold ?>" placeholder="Threshold" maxlength="9" size="9">
-							<div id="clientselectiond" name="clientselectiond" style="display: none;">
+							<div id="clientselectiond" style="display: none;">
 								<select id="clientselection" name="clientselection[]" multiple="multiple">
 									<option <?php echo ((!empty($content['editRule']->clientArr) && in_array("ABC",$content['editRule']->clientArr)) ? "selected" : "") ?> value="ABC">ABC (Bcash)</option>
 									<option <?php echo ((!empty($content['editRule']->clientArr) && in_array("Unlimited",$content['editRule']->clientArr)) ? "selected" : "") ?> value="Unlimited">Unlimited</option>	 
@@ -287,7 +283,7 @@ In the last fourth row you need to speficy the global trigger event if you check
 	<script src="assets/js/custom.min.js"></script>
 	<script src="assets/js/bootstrap-multiselect.js"></script>
 
-	<script type="text/javascript">
+	<script>
 	$(document).ready(function() {
 		$('#clientselection').multiselect();
 		
