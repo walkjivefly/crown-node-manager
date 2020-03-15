@@ -47,4 +47,8 @@ class Config {
 	const DISPLAY_TOKENS = 25;
 	// Number of NFTs displayed on NFTs page
 	const DISPLAY_NODES = 9999;
+
+	// Human friendly MN/SN active times
+	const HUMAN_TIMES = FALSE;
+}
 ?>

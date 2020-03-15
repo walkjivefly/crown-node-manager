@@ -682,4 +682,62 @@ function createMapJs(int $peerCount){
 	return $map;
 }
 
+function secondsToHuman($number_of_seconds, $out_seconds = True, $out_minutes = True, $out_hours = True){
+    $human_string = "";
+
+    $weeks = 0;
+    $days = 0;
+    $hours = 0;
+    if($number_of_seconds > 604800) {
+        # weeks
+        $weeks = intdiv($number_of_seconds, 604800);
+        $number_of_seconds = $number_of_seconds - ($weeks * 604800);
+        $elem_str = $weeks . ' week';
+        if($weeks > 1) {
+			$elem_str .= 's';
+		}
+		$human_string .= $elem_str . ' ';
+	}
+
+    if($number_of_seconds > 86400) {
+        # days
+        $days = intdiv($number_of_seconds, 86400);
+        $number_of_seconds = $number_of_seconds - ($days * 86400);
+        $elem_str = $days . ' day';
+        if($days > 1) {
+			$elem_str .= 's';
+		}
+		$human_string .= $elem_str . ' ';
+	}
+
+    if($out_hours and $number_of_seconds > 3600) {
+        $hours = intdiv($number_of_seconds, 3600);
+        $number_of_seconds = $number_of_seconds - ($hours * 3600);
+        $elem_str = $hours . ' hour';
+        if($hours > 1) {
+			$elem_str .= 's';
+		}
+		$human_string .= $elem_str . ' ';
+	}
+	
+	if($out_minutes and $number_of_seconds > 60) {
+		$minutes = intdiv($number_of_seconds, 60);
+		$number_of_seconds = $number_of_seconds - ($minutes * 60);
+		$elem_str = $minutes . ' minute';
+		if($minutes > 1) {
+			$elem_str .= 's';
+		}
+		$human_string .= $elem_str . ' ';
+	}
+	
+	if($out_seconds and $number_of_seconds > 0) {
+		$elem_str = $number_of_seconds + ' second';
+		if($number_of_seconds > 1) {
+			$elem_str .= 's';
+		}
+		$human_string .= $elem_str;
+	}
+	
+	return $human_string;
+}
 ?>
