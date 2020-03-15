@@ -38,8 +38,9 @@
 						<table id="sporks" class="table table-striped table-bordered table-valign">
 							<thead>
 								<tr>
-							 		<th>Key</th>
-							 		<th>Activation timestamp</th>
+									<th>Key</th>
+									<th>Value</th>
+							 		<th>Value as timestamp</th>
 							 		<th>Status</th>
 								</tr>
 					  		</thead>
@@ -47,6 +48,7 @@
 								<?php foreach($content['sporks'] as $spork){ ?>
 									<tr>
 										<td style="padding-right:0px;"><?=$spork['name'] ?></td>
+										<td><?=$spork['value'] ?></td>
 										<td><?=$spork['timestamp'] ?></td>
 										<td><?=$spork['status'] ?></td>									   
 									</tr>

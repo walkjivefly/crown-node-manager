@@ -359,6 +359,7 @@ function createSporksContent(){
 	$i = 0;
 	foreach($sporks as $spork => $value){
 		$content['sporks'][$i]['name'] = $spork;
+		$content['sporks'][$i]['value'] = $value;
 		$content['sporks'][$i]['timestamp'] = getDateTime($value);
 		if($value <= $rightNow) {
 			$content['sporks'][$i]['status'] = "On";
