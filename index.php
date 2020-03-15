@@ -4,7 +4,7 @@ namespace App;
 
 ini_set('display_startup_errors',1); 
 ini_set('display_errors','on');  // 1
-error_reporting(11); // E_ALL
+error_reporting(E_ALL); // 11
 
 require_once 'src/Autoloader.php';
 Autoloader::register();
@@ -126,13 +126,28 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 			if(preg_match("/^[0-9a-zA-Z-,\. ]{3,40}$/", $_GET['n'])) {
 				$hosterJson = file_get_contents('data/hoster.json');
 				$hoster = json_decode($hosterJson);
-				$hoster[] = $_GET['n'];
+				$hoster[] = array($_GET['n']);
 				file_put_contents('data/hoster.json',json_encode($hoster));
 				updateHosted($_GET['n'], true);
 				$message = "Hoster succesfully added";	
 			}else{
 				$error = "Invalid Hoster";
 			}
+
+			if(preg_match("/^[0-9a-zA-Z-,\. ]{3,40}$/", $_GET['n'])) {
+				if(!in_array($_GET['n'], $hosterList)){
+					$hosterList[] = $_GET['n'];
+					file_put_contents('data/hoster.json',json_encode($hosterList));
+					updateHosted($_GET['n'], true);
+					$message = "Hoster succesfully added"; 
+				}else{
+					$error = "Hoster already in list";
+				}
+			}else{
+				$error = "Invalid Hoster";
+			}
+
+			
 		}
 		// Apply rules		  
 		elseif($_GET['c'] == "run"){
@@ -430,6 +445,11 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 		}
 	}
    $data = array('section' => 'settings', 'title' => 'Settings', 'geoPeers' => Config::PEERS_GEO);
+
+// Sporks page
+}elseif($_GET['p'] == "sporks") {
+	$content = createSporksContent();
+	$data = array('section' => 'sporks', 'title' => 'Sporks', 'content' => $content);  
 
 	
 // About Page	

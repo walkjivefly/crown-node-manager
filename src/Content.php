@@ -348,6 +348,25 @@ function createNodesContent($type){
 	return $content;
 }
 
+function createSporksContent(){
+	global $bitcoind;
+	$content['sporks'] = $bitcoind->spork("show");
+	$i = 0;
+	foreach($content["sporks"] as $spork => $value){
+		$content["sporks"][$i]["name"] = $spork;
+		$content["sporks"][$i]["timestamp"] = getDateTime($value);
+		if($value <= time()) {
+			$content["sporks"][$i]["status"] = "On";
+		} else {
+			$content["sporks"][$i]["status"] = "Off";
+		}
+		$i++;
+	}
+	$content["SporksCount"] = $i++;
+	$content['node'] = new Node();
+	return $content;
+}
+
 function createUnspentContent(){
 	global $bitcoind, $error;
 	
