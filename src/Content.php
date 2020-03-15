@@ -338,10 +338,13 @@ function createNodesContent($type){
 		}
 		list($content["node"][$i]["txid"], $unused) = explode("-", $txid);
 		list($content["node"][$i]["status"],$content["node"][$i]["protocol"],$content["node"][$i]["address"],
-		$content["node"][$i]["IP"], $content["node"][$i]["lastseen"],$content["node"][$i]["activetime"],
-		$content["node"][$i]["lastpaid"]) = sscanf($node, "%s %s %s %s %d %d %d");
+			$content["node"][$i]["IP"], $content["node"][$i]["lastseen"],$content["node"][$i]["activetime"],
+			$content["node"][$i]["lastpaid"]) = sscanf($node, "%s %s %s %s %d %d %d");
 		$content["node"][$i]["lastseen"] = getDateTime($content["node"][$i]["lastseen"]);
 		$content["node"][$i]["lastpaid"] = getDateTime($content["node"][$i]["lastpaid"]);
+		if(Config::HUMAN_TIMES) {
+			$content["node"][$i]["activetime"] = secondsToHuman($content["node"][$i]["activetime"]);
+		}
 		$i++;
 	}
 
@@ -350,19 +353,22 @@ function createNodesContent($type){
 
 function createSporksContent(){
 	global $bitcoind;
-	$content['sporks'] = $bitcoind->spork("show");
+	$sporks = $bitcoind->spork("show");
+	$content["SporksEnabled"] = 0;
+	$rightNow = time();
 	$i = 0;
-	foreach($content["sporks"] as $spork => $value){
-		$content["sporks"][$i]["name"] = $spork;
-		$content["sporks"][$i]["timestamp"] = getDateTime($value);
-		if($value <= time()) {
-			$content["sporks"][$i]["status"] = "On";
+	foreach($sporks as $spork => $value){
+		$content['sporks'][$i]['name'] = $spork;
+		$content['sporks'][$i]['timestamp'] = getDateTime($value);
+		if($value <= $rightNow) {
+			$content['sporks'][$i]['status'] = "On";
+			$content['SporksEnabled']++;
 		} else {
-			$content["sporks"][$i]["status"] = "Off";
+			$content['sporks'][$i]['status'] = "Off";
 		}
 		$i++;
 	}
-	$content["SporksCount"] = $i++;
+	$content['SporksCount'] = $i++;
 	$content['node'] = new Node();
 	return $content;
 }
