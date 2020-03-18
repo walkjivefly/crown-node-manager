@@ -156,6 +156,9 @@ function createBlocksContent(){
 
 	for($i = 0; $i < Config::DISPLAY_BLOCKS; $i++){
 		$block = $bitcoind->getblock($blockHash);
+		if($i==0){ 
+			$content["latest"] = $block["height"];
+		}
 		$content["blocks"][$block["height"]]["hash"] = $block["hash"];
 		$content["blocks"][$block["height"]]["size"] = round($block["size"]/1000,2);
 		$content["totalSize"] += $block["size"];
