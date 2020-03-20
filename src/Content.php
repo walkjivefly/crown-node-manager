@@ -3,7 +3,7 @@
 namespace App;
 
 function createMainContent(){
-	global $trafficCIn, $trafficCOut, $newPeersCount;
+	global $bitcoind, $trafficCIn, $trafficCOut, $newPeersCount;
 
 
 	$peers = getPeerData();
@@ -13,6 +13,17 @@ function createMainContent(){
 	$content = [];
 	$content['bannedPeers'] = $banListInfo['totalBans'];
 	$content['last24h'] = $banListInfo['lastCount'];
+	$content['mnCount'] = $bitcoind->masternode('count');
+	$content['mnEnabledCount'] = $bitcoind->masternode('count','enabled');
+	$content['snCount'] = $bitcoind->systemnode('count');
+	$content['snEnabledCount'] = $bitcoind->systemnode('count','enabled');
+	try{
+		$content['nfProtosCount'] = $bitcoind->nftproto('totalsupply');
+		$content['nftCount'] = $bitcoind->nftoken('totalsupply');
+	}catch(\Exception $e){
+		$content['nfProtosCount'] = "N/A";
+		$content['nftCount'] = "N/A";
+	}
 	$content['node'] = new Node();
 	if(Config::PEERS_GEO){
 		$content['map'] = createMapJs($peerCount);
@@ -282,39 +293,45 @@ function createMempoolContent(){
 
 function createNftProtocolsContent($count = 20, $skip = 0, $height = "*", $txonly = FALSE){
 	global $bitcoind;
-
-	$content['nftProtocols'] = $bitcoind->nftproto('list', $count, $skip, $height, $txonly);
-	$content['request'] = $count." ".$skip." ".$height." ".$txonly;
 	try{
+		$content['nftProtocols'] = $bitcoind->nftproto('list', $count, $skip, $height, $txonly);
+		$content['request'] = $count." ".$skip." ".$height." ".$txonly;
 		$content['nftProtosCount'] = $bitcoind->nftproto('totalsupply');
+		$content['nftCount'] = $bitcoind->nftoken('totalsupply');
 	}catch(\Exception $e){
+		$content['nftProtocols'] = [];
 		$content['nftProtosCount'] = "N/A";
+		$content['nftCount'] = "N/A";
+		$content['request'] = "NFT functionality is disabled.";
 	}
-	$content['nftCount'] = $bitcoind->nftoken('totalsupply');
-	$content['node'] = new Node();
+	//$content['node'] = new Node();
 	return $content;
 }
 
 function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0, $height = "*"){
 	global $bitcoind;
-	$content['nftokens'] = $bitcoind->nftoken("list", $protocol, $owner, $count, $skip, $height);
-	$i = 0;
-	foreach($content["nftokens"] as $token){
-		if($i == Config::DISPLAY_TOKENS){
-			break;
-		}
-		$content["nftokens"][$i]["timestamp"] = getDateTime($token["timestamp"]);
-		$i++;
-	}
-	$content['request'] = $protocol." ".$owner." ".$count." ".$skip." ".$height;
-	$content['nftCount'] = $i;
 	try{
+		$content['nftokens'] = $bitcoind->nftoken("list", $protocol, $owner, $count, $skip, $height);
+		$i = 0;
+		foreach($content["nftokens"] as $token){
+			if($i == Config::DISPLAY_TOKENS){
+				break;
+			}
+			$content["nftokens"][$i]["timestamp"] = getDateTime($token["timestamp"]);
+			$i++;
+		}
+		$content['nftCount'] = $i;
+		$content['request'] = $protocol." ".$owner." ".$count." ".$skip." ".$height;
 		$content['nftProtosCount'] = $bitcoind->nftproto('totalsupply');
+		$content['totalsupply'] = $bitcoind->nftoken('totalsupply');
 	}catch(\Exception $e){
+		$content['nftokens'] = [];
+		$content['request'] = "NFT functionality is disabled.";
 		$content['nftProtosCount'] = "N/A";
-	}
-	$content['totalsupply'] = $bitcoind->nftoken('totalsupply');
-	$content['node'] = new Node();
+		$content['totalsupply'] = "N/A";
+		$content['nftCount'] = "N/A";
+	};
+	//$content['node'] = new Node();
 	return $content;
 }
 
@@ -380,7 +397,7 @@ function createSporksContent(){
 function createUnspentContent(){
 	global $bitcoind, $error;
 	
-	//$content = [];
+	$content = [];
 	
 	try{
 		$unspents = $bitcoind->listunspent();
@@ -400,11 +417,10 @@ function createUnspentContent(){
 		$content["utxo"][$i]["amount"] = $unspent["amount"];
 		$content["utxo"][$i]["confs"] = $unspent["confirmations"];
 		$content["utxo"][$i]["spendable"] = $unspent["spendable"];
-		$content['node'] = new Node();
-
 		$i++;
-		
 	}
+	$content['utxoCount'] = $i;
+	$content['node'] = new Node();
 	return $content;
 }
 ?>

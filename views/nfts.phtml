@@ -2,15 +2,15 @@
 		<div class="panel panel-default">  
 			<div class="panel-body">
 				<div class="row tile_count">
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="width:30%;">
+					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-folder-open"></i> NFT protocols</span>
-					  <div class="count"><?= $content['nftProtosCount'] ?><small> Registered</small></div>
+					  <div class="count"><?= ($content['nftProtosCount']).(($content['nftProtosCount'] != 'N/A') ? "<small> Registered</small>" : "")?></div>
 					  <span class="count_bottom"> -</span>
 					</div>
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="width:30%;">
+					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-qrcode" style="color:#EDDA74;"></i> NFTs count</span>
-					  <div class="count"><?= $content['totalsupply'] ?><small> Registered</small></div>
-					  <span class="count_bottom"><?= $content['nftCount'] ?> Displayed</span>
+					  <div class="count"><?= ($content['totalsupply']).(($content['totalsupply'] != 'N/A') ? "<small> Registered</small>" : "")?></div>
+					  <span class="count_bottom"><?= ($content['nftCount'] != "N/A" ? $content['nftCount']." Displayed" : "-")?></span>
 					</div>
 				</div>
 			</div>
