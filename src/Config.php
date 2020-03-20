@@ -4,13 +4,13 @@ namespace App;
 
 class Config {
 	
-	// Bitcoin Node Manager (BNM) password for login. You should additionally change the name of 
-    // BNM folder to something unique, if accessible via the web. You can also limit the access 
+	// Crown Platform Monitor (CPM) password for login. You should additionally change the name of 
+    // CPM folder to something unique, if accessible via the web. You can also limit the access 
     // to a specific IP with the option below.
 	const PASSWORD = "LOGIN-PASSWORD";
-    // IP that can can access BNM (by default only localhost (IPv4/v6) can access BNM).
-    // If empty (""), any IP can access BNM. If "localhost", only localhost can access BNM. 
-    // If specific IP (e.g. "84.12.32.297"), localhost and the specific IP can access BNM.
+    // IP that can can access CPM (by default only localhost (IPv4/v6) can access CPM).
+    // If empty (""), any IP can access CPM. If "localhost", only localhost can access CPM. 
+    // If specific IP (e.g. "84.12.32.297"), localhost and the specific IP can access CPM.
 	const ACCESS_IP = "localhost";	
 	const ACCESS_IP2 = "localhost";	
 	const ACCESS_IP3 = "localhost";	
@@ -50,5 +50,8 @@ class Config {
 
 	// Human friendly MN/SN active times
 	const HUMAN_TIMES = FALSE;
+
+	// Public mode disables wallet, rules, hoster and settings pages
+	const PUBLIC_MODE = TRUE;
 }
 ?>

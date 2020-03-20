@@ -1,8 +1,8 @@
-# Crown Node Manager Beta
+# Crown Platform Monitor Beta
 
 ![](https://i.imgur.com/x4FZMVC.png)
 
-Crown Node Manager (CNM) is a lightweight dashboard and monitoring system for your Crown node.
+Crown Platform Monitor (CNM) is a lightweight dashboard and monitoring system for your Crown node.
 
 
 ## Features
@@ -26,7 +26,7 @@ Crown Node Manager (CNM) is a lightweight dashboard and monitoring system for yo
 
 ## Installation
 
-1. Download Crown Node Manager either from [here](https://github.com/walkjivefly/crown-node-manager/releases) or by cloning this  repository.
+1. Download Crown Platform Monitor either from [here](https://github.com/walkjivefly/crown-node-manager/releases) or by cloning this  repository.
 2. Edit `src/Config.php` to enter your crownd RPC credentials, set a password and change other settings.
 3. Upload the folder to the public directory of your web server. If the folder is accesible via the internet, I recommend renaming the folder to something unique. Although CNM is password protected and access can be limited to a specific IP, there can be security flaws and bugs.
 4. Open the URL to the folder in your browser and login with the password choosen in `src/Config.php`.
@@ -87,6 +87,6 @@ IP protection doesn't work here. If you use `Apache` you are fine, since the fol
 
 ## Donate
 
-If you find the Crown Node Manager useful please consider donating to 
+If you find the Crown Platform Monitor useful please consider donating to 
 CRWD8e53sZcsL19b28UHqZmGndS4s6yr4gkf
 
