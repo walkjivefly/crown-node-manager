@@ -3,7 +3,7 @@
 namespace App;
 
 function createMainContent(){
-	global $bitcoind, $trafficCIn, $trafficCOut, $newPeersCount;
+	global $crownd, $trafficCIn, $trafficCOut, $newPeersCount;
 
 
 	$peers = getPeerData();
@@ -13,13 +13,13 @@ function createMainContent(){
 	$content = [];
 	$content['bannedPeers'] = $banListInfo['totalBans'];
 	$content['last24h'] = $banListInfo['lastCount'];
-	$content['mnCount'] = $bitcoind->masternode('count');
-	$content['mnEnabledCount'] = $bitcoind->masternode('count','enabled');
-	$content['snCount'] = $bitcoind->systemnode('count');
-	$content['snEnabledCount'] = $bitcoind->systemnode('count','enabled');
+	$content['mnCount'] = $crownd->masternode('count');
+	$content['mnEnabledCount'] = $crownd->masternode('count','enabled');
+	$content['snCount'] = $crownd->systemnode('count');
+	$content['snEnabledCount'] = $crownd->systemnode('count','enabled');
 	try{
-		$content['nfProtosCount'] = $bitcoind->nftproto('totalsupply');
-		$content['nftCount'] = $bitcoind->nftoken('totalsupply');
+		$content['nfProtosCount'] = $crownd->nftproto('totalsupply');
+		$content['nftCount'] = $crownd->nftoken('totalsupply');
 	}catch(\Exception $e){
 		$content['nfProtosCount'] = "N/A";
 		$content['nftCount'] = "N/A";
@@ -41,10 +41,10 @@ function createMainContent(){
 }
 
 function createPeerContent(){
-	global $trafficC, $trafficCIn, $trafficCOut, $bitcoind, $newPeersCount;
+	global $trafficC, $trafficCIn, $trafficCOut, $crownd, $newPeersCount;
 
 	$peers = getPeerData();
-	$netinfo = $bitcoind->getnettotals();
+	$netinfo = $crownd->getnettotals();
 
 	$content = getMostPop($peers);
 	$content['peers'] = $peers;
@@ -62,10 +62,10 @@ function createPeerContent(){
 }
 
 function createBanListContent(){
-	global $bitcoind, $error;
+	global $crownd, $error;
 
     // Crown doesn't (yet) support listbanned RPC, fake empty result
-	//$banlist = $bitcoind->listbanned();
+	//$banlist = $crownd->listbanned();
     $banlist = [];
 
 	$content = [];
@@ -141,7 +141,7 @@ function createBanListContent(){
 }
 
 function createBlocksContent(){
-	global $bitcoind;
+	global $crownd;
 
 	$content = [];
 	$content["totalTx"] = 0;
@@ -151,7 +151,7 @@ function createBlocksContent(){
 
 	// Get some stuff we'll need later. Shame I can't work out how to do this just once in the Node class 
 	// and have it available everywhere but that's OOP shite for you.
-	$blockchainInfo = $bitcoind->getblockchaininfo();
+	$blockchainInfo = $crownd->getblockchaininfo();
 	$network = $blockchainInfo["chain"];  // main or test or dev
 	if($network == "main"){
 		$basefee = 3.75;
@@ -163,10 +163,10 @@ function createBlocksContent(){
 		$sbinterval = 50;
 	}
 
-	$blockHash = $bitcoind->getbestblockhash();
+	$blockHash = $crownd->getbestblockhash();
 
 	for($i = 0; $i < Config::DISPLAY_BLOCKS; $i++){
-		$block = $bitcoind->getblock($blockHash);
+		$block = $crownd->getblock($blockHash);
 		if($i==0){ 
 			$content["latest"] = $block["height"];
 		}
@@ -179,8 +179,8 @@ function createBlocksContent(){
 		$content["blocks"][$block["height"]]["timeago"] = round((time() - $block["time"])/60);
 		$content["blocks"][$block["height"]]["coinbasetx"] = $block["tx"][0];
 		$content["blocks"][$block["height"]]["coinstaketx"] = $block["tx"][1];
-		$coinbaseTx = $bitcoind->getrawtransaction($block["tx"][0], 1);
-		$coinstakeTx = $bitcoind->getrawtransaction($block["tx"][1], 1);
+		$coinbaseTx = $crownd->getrawtransaction($block["tx"][0], 1);
+		$coinstakeTx = $crownd->getrawtransaction($block["tx"][1], 1);
 		$coinbase = $coinbaseTx["vout"][1]["value"] + $coinbaseTx["vout"][2]["value"];
 		$coinstake = $coinstakeTx["vout"][0]["value"];
 		$superblock = $block["height"] % $sbinterval == 0;
@@ -207,11 +207,11 @@ function createBlocksContent(){
 }
 
 function createForksContent(){
-	global $bitcoind;
+	global $crownd;
 
 	$content["recentForks"] = 0;	// Count forks in last 24h
 
-	$forks = $bitcoind->getchaintips();
+	$forks = $crownd->getchaintips();
 	$i = 0;
 	$lastTime = 0;
 
@@ -227,7 +227,7 @@ function createForksContent(){
 		$content["blocks"][$i]["succeeded"] = $fork["height"];
 
 		if($fork["status"] != "headers-only" AND $fork["status"] != "unknown"){
-			$block = $bitcoind->getblock($fork["hash"]);
+			$block = $crownd->getblock($fork["hash"]);
 			$content["blocks"][$i]["size"] = round($block["size"]/1000,2);
 			//$content["blocks"][$i]["versionhex"] = $block["versionHex"];
 			//$content["blocks"][$i]["voting"] = getVoting($block["versionHex"]);
@@ -282,9 +282,9 @@ function createRulesContent($editID = NULL){
 }
 
 function createMempoolContent(){
-	global $bitcoind;
+	global $crownd;
 
-	$content['txs'] = $bitcoind->getrawmempool(TRUE);
+	$content['txs'] = $crownd->getrawmempool(TRUE);
 	$content['txs'] = array_slice($content['txs'], 0, CONFIG::DISPLAY_TXS);
 	$content['node'] = new Node();
 
@@ -292,12 +292,12 @@ function createMempoolContent(){
 }
 
 function createNftProtocolsContent($count = 20, $skip = 0, $height = "*", $txonly = FALSE){
-	global $bitcoind;
+	global $crownd;
 	try{
-		$content['nftProtocols'] = $bitcoind->nftproto('list', $count, $skip, $height, $txonly);
+		$content['nftProtocols'] = $crownd->nftproto('list', $count, $skip, $height, $txonly);
 		$content['request'] = $count." ".$skip." ".$height." ".$txonly;
-		$content['nftProtosCount'] = $bitcoind->nftproto('totalsupply');
-		$content['nftCount'] = $bitcoind->nftoken('totalsupply');
+		$content['nftProtosCount'] = $crownd->nftproto('totalsupply');
+		$content['nftCount'] = $crownd->nftoken('totalsupply');
 	}catch(\Exception $e){
 		$content['nftProtocols'] = [];
 		$content['nftProtosCount'] = "N/A";
@@ -309,9 +309,9 @@ function createNftProtocolsContent($count = 20, $skip = 0, $height = "*", $txonl
 }
 
 function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0, $height = "*"){
-	global $bitcoind;
+	global $crownd;
 	try{
-		$content['nftokens'] = $bitcoind->nftoken("list", $protocol, $owner, $count, $skip, $height);
+		$content['nftokens'] = $crownd->nftoken("list", $protocol, $owner, $count, $skip, $height);
 		$i = 0;
 		foreach($content["nftokens"] as $token){
 			if($i == Config::DISPLAY_TOKENS){
@@ -322,8 +322,8 @@ function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0
 		}
 		$content['nftCount'] = $i;
 		$content['request'] = $protocol." ".$owner." ".$count." ".$skip." ".$height;
-		$content['nftProtosCount'] = $bitcoind->nftproto('totalsupply');
-		$content['totalsupply'] = $bitcoind->nftoken('totalsupply');
+		$content['nftProtosCount'] = $crownd->nftproto('totalsupply');
+		$content['totalsupply'] = $crownd->nftoken('totalsupply');
 	}catch(\Exception $e){
 		$content['nftokens'] = [];
 		$content['request'] = "NFT functionality is disabled.";
@@ -336,18 +336,18 @@ function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0
 }
 
 function createNodesContent($type){
-	global $bitcoind;
+	global $crownd;
 
 	if($type == "MN"){
-		$nodes = $bitcoind->masternodelist('full');
-		$content["nodeCount"] = $bitcoind->masternode('count');
-		$content["EnabledCount"] = $bitcoind->masternode('count','enabled');
-		$LastWinner = $bitcoind->masternode('current');
+		$nodes = $crownd->masternodelist('full');
+		$content["nodeCount"] = $crownd->masternode('count');
+		$content["EnabledCount"] = $crownd->masternode('count','enabled');
+		$LastWinner = $crownd->masternode('current');
 	}else{
-		$nodes = $bitcoind->systemnodelist('full');
-		$content["nodeCount"] = $bitcoind->systemnode('count');
-		$content["EnabledCount"] = $bitcoind->systemnode('count','enabled');
-		$LastWinner = $bitcoind->systemnode('current');
+		$nodes = $crownd->systemnodelist('full');
+		$content["nodeCount"] = $crownd->systemnode('count');
+		$content["EnabledCount"] = $crownd->systemnode('count','enabled');
+		$LastWinner = $crownd->systemnode('current');
 	}
 
 	$content["LastWinner"] = $LastWinner["pubkey"];
@@ -372,8 +372,8 @@ function createNodesContent($type){
 }
 
 function createSporksContent(){
-	global $bitcoind;
-	$sporks = $bitcoind->spork("show");
+	global $crownd;
+	$sporks = $crownd->spork("show");
 	$content["SporksEnabled"] = 0;
 	$rightNow = time();
 	$i = 0;
@@ -395,12 +395,12 @@ function createSporksContent(){
 }
 
 function createUnspentContent(){
-	global $bitcoind, $error;
+	global $crownd, $error;
 	
 	$content = [];
 	
 	try{
-		$unspents = $bitcoind->listunspent();
+		$unspents = $crownd->listunspent();
 	}catch(\Exception $e){
 		$error = "Wallet disabled!";
 		return "";

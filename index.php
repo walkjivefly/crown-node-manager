@@ -18,7 +18,7 @@ if(!(empty(Config::ACCESS_IP) OR $_SERVER['REMOTE_ADDR'] == "127.0.0.1" OR $_SER
 // Cronjob Rule Run
 if(isset($_GET['job']) AND $_GET['job'] === substr(hash('sha256', Config::PASSWORD."ebe8d532"),0,24)){
 	require_once 'src/Utility.php';
-	$bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/');
+	$crownd = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/');
 	Rule::run();
 	exit;
 }
@@ -65,7 +65,7 @@ $trafficC = 0;
 $trafficCIn = 0;
 $trafficCOut = 0;
 $newPeersCount = 0;
-$bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/', Config::DEBUG);
+$crownd = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/', Config::DEBUG);
 
 // Content
 // Main Page
@@ -97,7 +97,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 			}
 			if($err == 0){
 				try {
-					$result = $bitcoind->setban($ip, "add", $bantime);
+					$result = $crownd->setban($ip, "add", $bantime);
 					// Sleep necessary otherwise peer is still returned by Crown core
 					sleep(1);
 					$message = "Peer successfully banned";
@@ -113,7 +113,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 			if(preg_match("/^(\[{0,1}[0-9a-z:\.]{7,39}\]{0,1}:[0-9]{1,5})$/", $_GET['ip'], $match)) {
 				$ip = $match[1];
 				try {
-					$result = $bitcoind->disconnectnode($ip);
+					$result = $crownd->disconnectnode($ip);
 					// Sleep necessary otherwise peer is still returned by Crown core
 					sleep(1);
 					$message = "Peer successfully disconnected";
@@ -220,7 +220,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 			if(preg_match("/^([0-9a-z:\.]{7,39}\/[0-9]{1,3})$/", $_GET['ip'], $match)) {
 				$ip = $match[1];
 				try {
-					$result = $bitcoind->setban($ip, "remove");
+					$result = $crownd->setban($ip, "remove");
 					$message = "Node successfully unbanned";
 				} catch (\Exception $e) {
 					$error = "Node could not be unbanned";
@@ -230,7 +230,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 			}
 		}elseif($_GET['c'] == "clearlist"){
 			try {
-				$result = $bitcoind->clearbanned();
+				$result = $crownd->clearbanned();
 				$message = "Banlist cleared";
 			} catch (\Exception $e) {
 				$error = "Could not clear banlist";
@@ -244,7 +244,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 				foreach($banlist as $ban){
 					$timestamp = strtotime($ban[2]);
 					if(checkIpBanList($ban[0]) AND $timestamp !== FALSE){
-						$result = $bitcoind->setban($ban[0], "add", $timestamp, true);
+						$result = $crownd->setban($ban[0], "add", $timestamp, true);
 						$i++;
 					}
 				}

@@ -16,7 +16,7 @@ class Config {
 	const ACCESS_IP3 = "localhost";	
 	
 	
-	// IP of bitcoind RPC server. Usually localhost. Be careful with remote servers. The connection is not encrypted.
+	// IP of crownd RPC server. Usually localhost. Be careful with remote servers. The connection is not encrypted.
 	const RPC_IP = "127.0.0.1:8332";
 	// RPC username / rpcauth specified in bitcoin.conf
 	const RPC_USER = "USERNAME";

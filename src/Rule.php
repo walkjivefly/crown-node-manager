@@ -90,7 +90,7 @@ class Rule {
 	 * @return bool
 	 */
 	public static function run() {
-		global $bitcoind; 
+		global $crownd; 
 
 		$data = self::getData();
 		
@@ -158,7 +158,7 @@ class Rule {
 				switch($rule->action) {
 					case "ban":
 						try{
-							$msg1 = $bitcoind->setban($peer->ip, "add", intval($rule->bantime));
+							$msg1 = $crownd->setban($peer->ip, "add", intval($rule->bantime));
 							$logging .= $logTime.": Banned (".$rule->trigger."): ".$peer->ip." (".$peer->client.") for ".$rule->bantime." s - (".$rule->id.")\r\n";
 						}catch(Exception $e) {
 							$logging .= $logTime.": Error banning ".$peer->ip." for ".$rule->bantime." s (".$rule->id.")\r\n";
@@ -167,7 +167,7 @@ class Rule {
 						break;
 					case "disconnect":
 						try{
-							$bitcoind->disconnectnode($peer->ip);
+							$crownd->disconnectnode($peer->ip);
 							$logging .= $logTime.": Disconnected (".$rule->trigger."): ".$peer->ip." (".$peer->client.") - (".$rule->id.")\r\n";
 						}catch(Exception $e) {
 							$logging .= $logTime.": Error disconnecting ".$peer->ip." (".$rule->id.")\r\n";

@@ -405,14 +405,14 @@ function getMostPop($peers){
 // Peer functions
 
 function getPeerData(bool $geo = NULL){
-	global $bitcoind;
+	global $crownd;
 	
 	// If not set, use config setting
 	if(is_null($geo)){
 		$geo = CONFIG::PEERS_GEO;
 	}
 	
-	$peerInfo = $bitcoind->getpeerinfo(); 
+	$peerInfo = $crownd->getpeerinfo(); 
 
 	if($geo){
 		$peers = createPeersGeo($peerInfo);
@@ -458,7 +458,7 @@ function createPeersGeo($peerinfo){
 		foreach($arrayPeers as $key => $peer){
 			if($oldestPeerIp == $peer[0]){
 				$delete = true;
-				// Either bitcoind was restarted or peer reconnected. Since peer is the oldest, all other peers we known disconnected
+				// Either crownd was restarted or peer reconnected. Since peer is the oldest, all other peers we known disconnected
 				if($oldestPeerId != $key){
 					$delete = false;
 				}
