@@ -1,26 +1,16 @@
 <!-- top tiles -->
 		<div class="panel panel-default">  
-			<div class="panel-body">		  
+			<div class="panel-body">
 				<div class="row tile_count">
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fas fa-user-friends"></i> Total Connections</span>
+					  <span class="count_top"><i class="fas fa-user-friends"></i> Peers</span>
 					  <div class="count"><?= $content['node']->toConn ?></div>
 					  <span class="count_bottom"><span class="green" ><i class="fas fa-plus"></i><?= $content['nPeers'] ?></span> New Peers</span>
 					</div>
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fas fa-cloud-upload-alt"></i> Total Upload Traffic</span>
-					  <div class="count"><?= ($content['node']->tOut >= 1000) ? round($content['node']->tOut/1000,2)." <small>GB</small>" : $content['node']->tOut." <small>MB</small>"?></div>
-					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcout'] >= 1000) ? round($content['trafcout']/1000,2)." GB" : $content['trafcout']." MB"?> Current Peers</span>
-					</div>
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fas fa-cloud-download-alt"></i> Total Download Traffic</span>
-					  <div class="count"><?= ($content['node']->tIn >= 1000) ? round($content['node']->tIn/1000,2)." <small>GB</small>" : $content['node']->tIn." <small>MB</small>"?></div>
-					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcin'] >= 1000) ? round($content['trafcin']/1000,2)." GB" : $content['trafcin']." MB"?> Current Peers</span>
-					</div>
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fas fa-user-slash"></i> Banned Peers</span>
-					  <div class="count"><?= $content['bannedPeers'] ?></div>
-					  <span class="count_bottom"><i class="red"><i class="fas fa-plus"></i><?= $content['last24h'] ?></i> Last 24h</span>
+					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+					  <span class="count_top"><i class="fas fa-cube"></i> Lastest Block</span>
+					  <div class="count"><?= $content['node']->bHeight ?></div>
+					  <span class="count_bottom"><i class="oranges"><i class="fas fa-clock-o"></i> <?= $content['node']->bHeightAgo ?> m</i> ago</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-database"></i> TX in Mempool</span>
@@ -28,9 +18,34 @@
 					  <span class="count_bottom"><i class="<?= $content['node']->mempoolUsageP['color'] ?>"><i class="fas <?= $content['node']->mempoolUsageP['icon'] ?>"></i> <?= $content['node']->mempoolUsageP['value'] ?>%</i> Usage</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fas fa-cube orange"></i> Lastest Block</span>
-					  <div class="count"><?= $content['node']->bHeight ?></div>
-					  <span class="count_bottom"><i class="oranges"><i class="fas fa-clock-o"></i> <?= $content['node']->bHeightAgo ?> m</i> ago</span>
+					  <span class="count_top"><i class="fas fa-folder-open"></i> NF Protocols</span>
+					  <div class="count"><?= ($content['nfProtosCount']).(($content['nfProtosCount'] != 'N/A') ? "<small> Registered</small>" : "")?></div>
+					  <span class="count_bottom">-</span>
+					</div>
+					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					  <span class="count_top"><i class="fas fa-qrcode"></i> NF Tokens</span>
+					  <div class="count"><?= ($content['nftCount']).(($content['nftCount'] != 'N/A') ? "<small> Registered</small>" : "")?></div>
+					  <span class="count_bottom">-</span>
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+					  <span class="count_top"><i class="fas fa-sitemap"></i> Masternodes</span>
+					  <div class="count"><?= ($content['mnEnabledCount'])." <small>Enabled</small>"?></div>
+					  <span class="count_bottom"><?= ($content['mnCount'])." Online"?></span>
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+					  <span class="count_top"><i class="fas fa-sitemap"></i> Systemnodes</span>
+					  <div class="count"><?= ($content['snEnabledCount'])." <small>Enabled</small>"?></div>
+					  <span class="count_bottom"><?= ($content['snCount'])." Online"?></span>
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+					  <span class="count_top"><i class="fas fa-cloud-upload-alt"></i> Total Upload Traffic</span>
+					  <div class="count"><?= ($content['node']->tOut >= 1000) ? round($content['node']->tOut/1000,2)." <small>GB</small>" : $content['node']->tOut." <small>MB</small>"?></div>
+					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcout'] >= 1000) ? round($content['trafcout']/1000,2)." GB" : $content['trafcout']." MB"?> Current Peers</span>
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+					  <span class="count_top"><i class="fas fa-cloud-download-alt"></i> Total Download Traffic</span>
+					  <div class="count"><?= ($content['node']->tIn >= 1000) ? round($content['node']->tIn/1000,2)." <small>GB</small>" : $content['node']->tIn." <small>MB</small>"?></div>
+					  <span class="count_bottom"><i class="fas fa-angle-right"></i><?= ($content['trafcin'] >= 1000) ? round($content['trafcin']/1000,2)." GB" : $content['trafcin']." MB"?> Current Peers</span>
 					</div>
 				</div>
 			</div>
@@ -154,7 +169,7 @@
 				<div class="col-md-5 col-sm-5 col-xs-12">
 			  <div class="x_panel tile fixed_height_320 overflow_hidden">
 				<div class="x_title">
-				  <h2>Top Peer Clients</h2>
+				  <h2>Peer Client Versions</h2>
 				  <ul class="nav navbar-right panel_toolbox">
 					<li><a class="close-link"><i class="fas fa-times"></i></a>
 					</li>
