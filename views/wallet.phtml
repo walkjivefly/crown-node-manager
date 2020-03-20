@@ -2,23 +2,19 @@
 	<div class="panel panel-default">  
 		<div class="panel-body">
 			<div class="row tile_count">
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+				<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					<span class="count_top"><i class="fas fa-crown"></i> Balance</span>
 					<div class="count"><?= number_format($content['node']->walBal,8) ?></div>
 				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+				<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					<span class="count_top"><i class="fa fa-plane"></i> Unconfirmed Balance</span>
 					<div class="count"><?= number_format($content['node']->waluBal,8) ?></div>
 				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+				<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					<span class="count_top"><i class="fas fa-user-clock"></i> Immature Balance</span>
 					<div class="count"><?= number_format($content['node']->waliBal,8) ?></div>
 				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					<span class="count_top"><i class="fa fa-database"></i> Wallet Version</span>
-					<div class="count"><?= $content['node']->walVer ?></div>
-				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+				<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					<span class="count_top"><i class="fa fa-database"></i> TXCount</span>
 					<div class="count"><?= $content['node']->walTxcount ?></div>
 				</div>
@@ -67,34 +63,33 @@
 						</tr>
 					  </thead>
 					  <tbody>
-						<?php $i = 0;
-							  if($content){ foreach($content['utxo'] as $key => $utxo){ ?>
-									<tr>
-										<td><?= $key+1 ?></td>
-										<td><small><?= number_format($utxo["amount"],8) ?></small></td>
-										<td><small><?= $utxo["address"] ?></small></td>  
-										<td><small><?= $utxo["hash"] ?></small></td>  
-										<td><small><?= $utxo["vout"] ?></small></td>  
-										<td><small><?= $utxo["account"] ?></small></td>
-										<td><small><?= $utxo["scriptpubkey"] ?></small></td>  	
-										<td><small><?= $utxo["confs"] ?></small></td>  	
-										<td><small><?= $utxo["spendable"] ?></small></td>  	
-										<td> 
-											<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
-												<button type="button" class="btn btn-default btn-xs">Details</button>
-												<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="caret"></span>
-													<span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<ul class="dropdown-menu">
-												<li><a href="https://iquidus-01.crownplatform.com/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus</a></li>
-												<li><a href="https://insight-02.crownplatform.com/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight</a></li>
-												<li><a href="https://chainz.cryptoid.info/crw/tx.dws?<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Chainz</a></li>
-												<li><a href="http://xmn01:3001/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Testnet</a></li>
-												</ul>
-											</div>										   
-										</td> 
-									</tr>
+						<?php if($content['utxoCount'] > 0){ foreach($content['utxo'] as $key => $utxo){ ?>
+							<tr>
+								<td><?= $key+1 ?></td>
+								<td><small><?= number_format($utxo["amount"],8) ?></small></td>
+								<td><small><?= $utxo["address"] ?></small></td>  
+								<td><small><?= $utxo["hash"] ?></small></td>  
+								<td><small><?= $utxo["vout"] ?></small></td>  
+								<td><small><?= $utxo["account"] ?></small></td>
+								<td><small><?= $utxo["scriptpubkey"] ?></small></td>  	
+								<td><small><?= $utxo["confs"] ?></small></td>  	
+								<td><small><?= $utxo["spendable"] ?></small></td>  	
+								<td> 
+									<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
+										<button type="button" class="btn btn-default btn-xs">Details</button>
+										<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="caret"></span>
+											<span class="sr-only">Toggle Dropdown</span>
+										</button>
+										<ul class="dropdown-menu">
+										<li><a href="https://iquidus-01.crownplatform.com/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus</a></li>
+										<li><a href="https://insight-02.crownplatform.com/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight</a></li>
+										<li><a href="https://chainz.cryptoid.info/crw/tx.dws?<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Chainz</a></li>
+										<li><a href="http://xmn01:3001/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Testnet</a></li>
+										</ul>
+									</div>										   
+								</td> 
+							</tr>
 						<?php }} ?>						
 					  </tbody>
 					</table>
