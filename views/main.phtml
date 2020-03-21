@@ -19,12 +19,12 @@
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-folder-open"></i> NF Protocols</span>
-					  <div class="count"><?= ($content['nfProtosCount']).(($content['nfProtosCount'] != 'N/A') ? "<small> Registered</small>" : "")?></div>
+					  <div class="count"><?= $content['nfProtosCount']?></div>
 					  <span class="count_bottom">-</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-qrcode"></i> NF Tokens</span>
-					  <div class="count"><?= ($content['nftCount']).(($content['nftCount'] != 'N/A') ? "<small> Registered</small>" : "")?></div>
+					  <div class="count"><?= $content['nftCount']?></div>
 					  <span class="count_bottom">-</span>
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
