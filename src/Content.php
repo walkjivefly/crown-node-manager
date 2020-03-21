@@ -5,7 +5,18 @@ namespace App;
 function createMainContent(){
 	global $crownd, $trafficCIn, $trafficCOut, $newPeersCount;
 
-
+	$blockReward = 5;
+	$blocksPerDay = 1440;
+	$mnPercent = 0.37;
+	$snPercent= 0.08;
+	$mintPercent = 0.3;
+	$govPercent = 0.25;
+	$poolPerDay = $blockReward*$blocksPerDay;
+	$mnCollateral = 10000;
+	$snCollateral = 500;
+	$snShare = $snCollateral/$mnCollateral;
+	$mnShare = 1-$snShare;
+	
 	$peers = getPeerData();
 	$peerCount = count($peers);
 	$banListInfo = createBanListContent();
@@ -17,6 +28,10 @@ function createMainContent(){
 	$content['mnEnabledCount'] = $crownd->masternode('count','enabled');
 	$content['snCount'] = $crownd->systemnode('count');
 	$content['snEnabledCount'] = $crownd->systemnode('count','enabled');
+
+	$content['mnROI'] = round(($poolPerDay*($mnPercent+$mintPercent*$mnShare)/$content['mnEnabledCount'])*365/$mnCollateral*100,1);
+	$content['snROI'] = round(($poolPerDay*($snPercent+$mintPercent*$snShare)/$content['snEnabledCount'])*365/$snCollateral*100,1);
+	
 	try{
 		$content['nfProtosCount'] = $crownd->nftproto('totalsupply');
 		$content['nftCount'] = $crownd->nftoken('totalsupply');

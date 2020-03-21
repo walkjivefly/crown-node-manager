@@ -4,38 +4,38 @@
 				<div class="row tile_count">
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-user-friends"></i> Peers</span>
-					  <div class="count"><?= $content['node']->toConn ?></div>
+					  <div class="count"><a href="?p=peers"><?= $content['node']->toConn ?></a></div>
 					  <span class="count_bottom"><span class="green" ><i class="fas fa-plus"></i><?= $content['nPeers'] ?></span> New Peers</span>
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-cube"></i> Lastest Block</span>
-					  <div class="count"><?= $content['node']->bHeight ?></div>
+					  <div class="count"><a href="?p=blocks"><?= $content['node']->bHeight ?></a></div>
 					  <span class="count_bottom"><i class="oranges"><i class="fas fa-clock-o"></i> <?= $content['node']->bHeightAgo ?> m</i> ago</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-database"></i> TX in Mempool</span>
-					  <div class="count"><?= number_format($content['node']->mempoolTx) ?></div>
+					  <div class="count"><a href="?p=mempool"><?= number_format($content['node']->mempoolTx) ?></a></div>
 					  <span class="count_bottom"><i class="<?= $content['node']->mempoolUsageP['color'] ?>"><i class="fas <?= $content['node']->mempoolUsageP['icon'] ?>"></i> <?= $content['node']->mempoolUsageP['value'] ?>%</i> Usage</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-folder-open"></i> NF Protocols</span>
-					  <div class="count"><?= $content['nfProtosCount']?></div>
+					  <div class="count"><a href="?p=protocols"><?= $content['nfProtosCount']?></a></div>
 					  <span class="count_bottom">-</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-qrcode"></i> NF Tokens</span>
-					  <div class="count"><?= $content['nftCount']?></div>
+					  <div class="count"><a href="?p=nfts"><?= $content['nftCount']?></a></div>
 					  <span class="count_bottom">-</span>
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-sitemap"></i> Masternodes</span>
-					  <div class="count"><?= ($content['mnEnabledCount'])." <small>Enabled</small>"?></div>
-					  <span class="count_bottom"><?= ($content['mnCount'])." Online"?></span>
+					  <div class="count"><a href="?p=masternodes"><?= ($content['mnEnabledCount'])." <small>Enabled</small>"?></a></div>
+					  <span class="count_bottom"><?= ($content['mnROI'])."% annual ROI"?></span>
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-sitemap"></i> Systemnodes</span>
-					  <div class="count"><?= ($content['snEnabledCount'])." <small>Enabled</small>"?></div>
-					  <span class="count_bottom"><?= ($content['snCount'])." Online"?></span>
+					  <div class="count"><a href="?p=systemnodes"><?= ($content['snEnabledCount'])." <small>Enabled</small>"?></a></div>
+					  <span class="count_bottom"><?= ($content['snROI'])."% annual ROI"?></span>
 					</div>
 					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-cloud-upload-alt"></i> Total Upload Traffic</span>
