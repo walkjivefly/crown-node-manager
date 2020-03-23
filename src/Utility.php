@@ -260,20 +260,12 @@ function getBanReason($banreason){
 	return $banreason;
 }
 
-function getCleanClient($client){
+	function 	getCleanClient($client){
 	$client =  ltrim($client,"/");
 	$client =  rtrim($client,"/");
-	
-	if(preg_match("/^Satoshi:([0]\.[0-9]{1,2}\.[0-9]{1,2})/",$client, $matches)) {
+	return $client;
+	if(preg_match("/^Crown Core:([0]\.[0-9]{1,2}\.[0-9]{1,2})/",$client, $matches)) {
 		$client = "Core ".$matches[1];
-	}elseif(preg_match("/^Satoshi:([1]\.[0-9]{1,2}\.[0-9]{1,2})/",$client, $matches)) {
-		$client = "btc1 ".$matches[1];
-	}elseif(preg_match("/MultiBitHD:([0-9]\.[0-9]{1,2}\.[0-9]{1,2})/i",$client, $matches)){
-		$client = "MultiBit HD ".$matches[1];
-	}elseif(preg_match("/MultiBit:([0-9]\.[0-9]{1,2}\.[0-9]{1,2})/i",$client, $matches)){
-		$client = "MultiBit ".$matches[1];
-	}elseif(preg_match("/Bitcoin Wallet:([0-9]\.[0-9]{1,2})/i",$client, $matches)){
-		$client = "Bitcoin Wallet ".$matches[1];
 	}else{
 		$replace = array(":", "-SNAPSHOT", "\"", "'", "<", ">", "=");
 		$client = str_replace($replace, " ", $client);
@@ -365,10 +357,10 @@ function getMostPop($peers){
 		
 		if(CONFIG::PEERS_GEO){
 			// Count Country 1
-			if(array_key_exists($peer->countryCode,$ctCountAr)){
-				$ctCountAr[$peer->countryCode]++;
+			if(array_key_exists($peer->country,$ctCountAr)){
+				$ctCountAr[$peer->country]++;
 			}else{
-				$ctCountAr[$peer->countryCode] = 1;
+				$ctCountAr[$peer->country] = 1;
 			}
 			
 			// Count ISP 1
@@ -393,7 +385,7 @@ function getMostPop($peers){
 		
 		// Count ISP 2
 		arsort($htCountAr);
-		$result['mpIsp'] = substr(key($htCountAr),0,8);
+		$result['mpIsp'] = substr(key($htCountAr),0,14);
 		$result['mpIspC'] = reset($htCountAr);
 	}
 

@@ -77,9 +77,9 @@ class Peer{
 		$this->version = checkInt($peer["version"]);
 		$this->client = getCleanClient($peer["subver"]);
 		$this->orgClient = htmlspecialchars($peer["subver"]);
-		$this->spv = checkSPV($this->client);
-		$this->snoopy = checkSnooping($this->client);
-		$this->altClient = checkAltClient($this->client);
+		//$this->spv = checkSPV($this->client);
+		//$this->snoopy = checkSnooping($this->client);
+		//$this->altClient = checkAltClient($this->client);
 		$this->inbound = checkBool($peer["inbound"]);
 		$this->startingHeight = checkInt($peer["startingheight"]);
 		$this->banScore = checkInt($peer["banscore"]);
