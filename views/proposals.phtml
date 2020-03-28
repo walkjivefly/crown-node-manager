@@ -5,12 +5,12 @@
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 						<span class="count_top"><i class="far fa-paper-plane"></i> Proposals</span>
 						<div class="count"><?= $content['pCount'] ?> </div>
-						<span class="count_bottom"> Current </span>
+						<span class="count_bottom"> Active </span>
 					</div>
 					<div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
 						<span class="count_top"><i class="fa fa-cubes"></i> Next superblock</span>
 						<div class="count"><?= $content['nextSuperblock'] ?> </div>
-						<span class="count_bottom"><small><?=$content['nextDate']?></small></span>
+						<span class="count_bottom"><small><?=$content['nextDate']?></span>
 					</div>
 					<div class="col-md-2 col-sm-6 col-xs-6 tile_stats_count">
 						<span class="count_top"><i class="fas fa-crown"></i> Total Requested </span>
@@ -90,16 +90,19 @@
 										<td><?=$proposal['abstains'] ?></td>
 										<td><?=$proposal['passingMargin'] ?></td>
 										<td>										   
-											<div class="btn-group pull-left" style="padding:5px 0 3px 0px; margin-bottom:0px">
+											<div class="btn-group pull-right" style="padding:5px 0 3px 0px; margin-bottom:0px">
 												<button type="button" class="btn btn-default btn-xs">Explore</button>
 												<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<span class="caret"></span>
 													<span class="sr-only">Toggle Dropdown</span>
 												</button>
 												<ul class="dropdown-menu">
-												    <li><a href="https://iquidus-01.crownplatform.com/tx/<?= $proposal['hash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus</a></li>
-													<li><a href="https://insight-02.crownplatform.com/tx/<?= $proposal['hash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight</a></li>
-													<li><a href="https://chainz.cryptoid.info/crw/tx.dws?<?= $proposal['hash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Chainz</a></li>
+												    <li><a href="https://iquidus-01.crownplatform.com/tx/<?= $proposal['feeHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus txn</a></li>
+												    <li><a href="https://iquidus-01.crownplatform.com/address/<?= $proposal['paymentAddress'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus payment address</a></li>
+													<li><a href="https://insight-02.crownplatform.com/tx/<?= $proposal['feeHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight txn</a></li>
+													<li><a href="https://insight-02.crownplatform.com/address/<?= $proposal['paymentAddress'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight payment address</a></li>
+													<li><a href="https://chainz.cryptoid.info/crw/tx.dws?<?= $proposal['feeHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Chainz txn</a></li>
+													<li><a href="https://chainz.cryptoid.info/crw/address.dws?<?= $proposal['paymentAddress'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Chainz payment address</a></li>
 												</ul>
 											</div>										   
 								   		</td>										   

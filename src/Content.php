@@ -32,6 +32,7 @@ function createMainContent(){
 	$content['mnROI'] = round(($poolPerDay*($mnPercent+$mintPercent*$mnShare)/$content['mnEnabledCount'])*365/$mnCollateral*100,1);
 	$content['snROI'] = round(($poolPerDay*($snPercent+$mintPercent*$snShare)/$content['snEnabledCount'])*365/$snCollateral*100,1);
 	
+	$content['nextSuperblock'] = $crownd->mnbudget('nextblock');
 	try{
 		$content['nfProtosCount'] = $crownd->nftproto('totalsupply');
 		$content['nftCount'] = $crownd->nftoken('totalsupply');
@@ -392,7 +393,7 @@ function createGovernanceContent(){
 	$proposals = $crownd->mnbudget("show");
 	$mnCount = $crownd->masternode("count");
 	$currentBlock = $crownd->getblockcount();
-	$content["nextDate"] = "Estimated " . date("D j F Y H:i:s", time()+($content["nextSuperblock"]-$currentBlock)*60);
+	$content["nextDate"] = "Estimated " . date("D j F Y H:i", time()+($content["nextSuperblock"]-$currentBlock)*60);
 	$maxBudget = 54000;
 	$content["budgetRequested"] = 0;
 	$content["budgetPassing"] = 0;

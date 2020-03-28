@@ -10,7 +10,7 @@
 					<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-cube"></i> Lastest Block</span>
 					  <div class="count"><a href="?p=blocks"><?= $content['node']->bHeight ?></a></div>
-					  <span class="count_bottom"><i class="oranges"><i class="fas fa-clock-o"></i> <?= $content['node']->bHeightAgo ?> m</i> ago</span>
+					  <span class="count_bottom"><a href="?p=proposals"> Next SB: <?= $content['nextSuperblock']?></a></span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fas fa-database"></i> TX in Mempool</span>
