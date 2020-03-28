@@ -386,6 +386,73 @@ function createNodesContent($type){
 	return $content;
 }
 
+function createGovernanceContent(){
+	global $crownd;
+	$content["nextSuperblock"] = $crownd->mnbudget("nextblock");
+	$proposals = $crownd->mnbudget("show");
+	$mnCount = $crownd->masternode("count");
+	$currentBlock = $crownd->getblockcount();
+	$content["nextDate"] = "Estimated " . date("D j F Y H:i:s", time()+($content["nextSuperblock"]-$currentBlock)*60);
+	$maxBudget = 54000;
+	$content["budgetRequested"] = 0;
+	$content["budgetPassing"] = 0;
+	$content["budgetRemaining"] = $maxBudget;
+	$content["pCount"] = 0;
+	$i = 0;
+    foreach($proposals as $proposal){
+		$blockStart = $proposal["BlockStart"];
+		$blockEnd = $blockStart + ($proposal["TotalPaymentCount"] - 1) * 43200;
+		if($currentBlock <= $blockEnd){
+			$content["proposal"][$i]["name"] = $proposal["Name"];
+			$content["proposal"][$i]["URL"] = $proposal["URL"];
+			$content["proposal"][$i]["hash"] = $proposal["Hash"];
+			$content["proposal"][$i]["feeHash"] = $proposal["FeeHash"];
+			$content["proposal"][$i]["firstBlock"] = $proposal["BlockStart"];
+			$content["proposal"][$i]["totalPaymentCount"] = $proposal["TotalPaymentCount"];
+			$content["proposal"][$i]["remainingPaymentCount"] = $proposal["RemainingPaymentCount"];
+			$content["proposal"][$i]["paymentAddress"] = $proposal["PaymentAddress"];
+			$content["proposal"][$i]["yeas"] = $proposal["Yeas"];
+			$content["proposal"][$i]["nays"] = $proposal["Nays"];
+			$content["proposal"][$i]["abstains"] = $proposal["Abstains"];
+			$content["proposal"][$i]["totalPayment"] = $proposal["TotalPayment"];
+			$content["proposal"][$i]["monthlyPayment"] = $proposal["MonthlyPayment"];
+			$content["budgetRequested"] += $proposal["MonthlyPayment"];
+			$content["proposal"][$i]["passingMargin"] = ($proposal["Yeas"]-$proposal["Nays"]-$proposal["Abstains"]);
+			if($content["proposal"][$i]["passingMargin"] > $mnCount / 10) {
+				$content["proposal"][$i]["passing"] = "Yes";
+				$content["budgetPassing"] += $proposal["MonthlyPayment"];
+			}else{
+				$content["proposal"][$i]["passing"] = "No";
+			}
+			$i++;
+		}
+	}
+	$content["pCount"] = $i;
+	$content["budgetRemaining"] -= $content["budgetRequested"];
+	if($content["budgetRequested"] > $maxBudget){
+		$content["reqColour"] = "red";
+	}elseif($content["budgetRequested"] > $maxBudget * 0.9){
+		$content["reqColour"] = "orange";
+	}else{
+		$content["reqColour"] = "green";
+	}
+	if($content["budgetPassing"] > $maxBudget){
+		$content["passingColour"] = "red";
+	}elseif($content["budgetPassing"] > $maxBudget * 0.9){
+		$content["passingColour"] = "orange";
+	}else{
+		$content["passingColour"] = "green";
+	}
+	if($content["budgetRemaining"] < 0){
+		$content["remainingColour"] = "red";
+	}elseif($content["budgetRemaining"] < $maxBudget * 0.1){
+		$content["remainingColour"] = "orange";
+	}else{
+		$content["remainingColour"] = "green";
+	}
+	return $content;
+}
+
 function createSporksContent(){
 	global $crownd;
 	$sporks = $crownd->spork("show");
