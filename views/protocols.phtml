@@ -47,7 +47,7 @@
 							 		<th>Name</th>
 							 		<th>Type</th>
 									<th>Owner</th>
-									<th>Info</th>
+									<th style="width:70px;">Info</th>
 								</tr>
 					  		</thead>
 							<tbody>
@@ -67,9 +67,12 @@
 												</button>
 												<ul class="dropdown-menu">
 													<li><a href="?p=nfts&proto=<?= $protocol['nftProtocolId'] ?>" target="_self"> Issued tokens</a></li>
-  												    <li><a href="https://iquidus-01.crownplatform.com/tx/<?= $protocol['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus</a></li>
+													<li><a href="https://iquidus-01.crownplatform.com/api/getrawtransaction?txid=<?= $protocol['registrationTxHash']?>&decrypt=1" target="_blank"> Txn details</a></li>
+													<li class="divider"></li> 
+													<li><a href="https://iquidus-01.crownplatform.com/tx/<?= $protocol['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus</a></li>
 													<li><a href="https://insight-02.crownplatform.com/tx/<?= $protocol['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight</a></li>
 													<li><a href="https://chainz.cryptoid.info/crw/tx.dws?<?= $protocol['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Chainz</a></li>
+													<li class="divider"></li>
 													<li><a href="http://xmn01:3001/tx/<?= $protocol['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Testnet</a></li>
 												</ul>
 											</div>										   

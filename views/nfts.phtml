@@ -47,7 +47,7 @@
 							 		<th>Token ID</th>
 							 		<th>Owner</th>
 									<th>Timestamp</th>
-									<th>Info</th>
+									<th style="width:70px;">Info</th>
 								</tr>
 					  		</thead>
 							<tbody>
@@ -70,9 +70,13 @@
 													<li><a href="?p=nfts&proto=<?= $token['nftProtocolId'] ?>" target="_self">Same protocol</a></li>
 													<li><a href="?p=nfts&owner=<?= $token['nftOwnerKeyId'] ?>" target="_self">Same owner</a></li>
 													<li><a href="?p=nfts&proto=<?= $token['nftProtocolId'] ?>&owner=<?= $token['nftOwnerKeyId'] ?>" target="_self">Same protocol and owner</a></li>
-												    <li><a href="https://iquidus-01.crownplatform.com/tx/<?= $token['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus</a></li>
+													<li class="divider"></li>
+													<li><a href="https://iquidus-01.crownplatform.com/api/getrawtransaction?txid=<?= $token['registrationTxHash']?>&decrypt=1" target="_blank"> Txn details</a></li>
+													<li class="divider"></li>
+													<li><a href="https://iquidus-01.crownplatform.com/tx/<?= $token['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus</a></li>
 													<li><a href="https://insight-02.crownplatform.com/tx/<?= $token['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight</a></li>
 													<li><a href="https://chainz.cryptoid.info/crw/tx.dws?<?= $token['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Chainz</a></li>
+													<li class="divider"></li>
 													<li><a href="http://xmn01:3001/tx/<?= $token['registrationTxHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Testnet</a></li>
 												</ul>
 											</div>										   
