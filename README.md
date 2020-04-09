@@ -1,28 +1,30 @@
-# Crown Platform Monitor Beta
+# Crown Platform Monitor v0.1.0
 
-![](https://i.imgur.com/x4FZMVC.png)
-
-Crown Platform Monitor (CPM) is a lightweight dashboard and monitoring system for your Crown node.
+Crown Platform Monitor (CPM) is a visualisation and monitoring system for the Crown Platform network.
+![](https://i.imgur.com/h5FCysx.png)
 
 
 ## Features
 
 * Extensive dashboard with general information about the node, connected peers and the blockchain
 * Overview of all connected peers inlcuding country, ISP, client, traffic usage, supported services...
-* Ban or disconnect peers (afer the codebase update)
-* Manage a list of web hosters to detect if peer is hosted or private
 * Overview of the last received blocks
-* Overview of the last received forks (orphaned blocks / alternative chains)
-* Overview of the memory pool and containing transactions
-* Overview of NFT framework protocols and tokens
+* Overview of recent orphaned blocks / alternative chains
+* Overview of the memory pool and the inflight transactions
+* Overview of NFT framework protocols
+* Overview of NFT framework tokens
 * Overview of masternodes and systemnodes
+* Overview of active proposals in the Crown Decentralised Governance system
+* Overview of sporks
+
 
 ## Requirements
 
-* Crown Core 0.13.9.3+
+* Crown Core 0.14.0.0+
 * Web server (e.g. Apache, PHP built-in web server)
 * PHP 7.0.0+
 * cURL
+
 
 ## Installation
 
@@ -30,20 +32,18 @@ Crown Platform Monitor (CPM) is a lightweight dashboard and monitoring system fo
 2. Edit `src/Config.php` to enter your crownd RPC credentials, set a password and change other settings.
 3. Upload the folder to the public directory of your web server. If the folder is accesible via the internet, I recommend renaming the folder to something unique. Although CPM is password protected and access can be limited to a specific IP, there can be security flaws and bugs.
 4. Open the URL to the folder in your browser and login with the password choosen in `src/Config.php`.
-5. Optional: Run `chmod -R 770 /path-to-folder/{data, src, views}`. Only necessary for non Apache (`AllowOverride All` necessary) and publicly accessible web server. For more information, read next section.
+5. Optional: Run `chmod -R 770 /path-to-folder/{data, src, views}`. Only necessary for non Apache (`AllowOverride All` necessary) and publicly accessible web server. For more information, read the next section.
+
 
 ## Security
-
-* All pages and control functionality are only accessible for logged in users. The only exception is if you use the `Run Rules' cron job functionality. But a password based token is required
-and the functionality is only able to apply rules. 
+ 
 * Access to CPM is by default limited to localhost. This can be expanded to a specific IP or disabled. If disabled, make sure to protect the CPM folder (.htaccess, rename it to something unique 
 that an attacker will not guess). An attacker could "guess" your password, since there is no build-in brute force protection (if IP protection is disabled).
 * The `data` folder contains your rules, logs and geo information about your peers. Make sure to protect (e.g. `chmod -R 770 data`) this sensitive information if your web server is publicly accessible. The previously mentioned
 IP protection doesn't work here. If you use `Apache` you are fine, since the folder is protected with `.htaccess` (make sure `AllowOverride All` is set in your `apache2.conf` file).
 
-## Roadmap
 
-- [ ] Fix sorting/searching in protocol/NFT/MN/SN pages
+## Roadmap
 
 - [ ] NFT protocol and token pages enhancements
 
@@ -58,17 +58,6 @@ IP protection doesn't work here. If you use `Apache` you are fine, since the fol
 		* Location in table
 		* Map per node type or one map with different colour markers for MN/SN
 
-- [ ] Create rules to manage your peers (needs codebase update)
-
-		* Ban, disconnect or log peers that waste ressources, are slow or run old clients
-		* Set gobal events that trigger the execution of rules
-		* Run rules manually or set up a cron job
-
-- [ ] Overview of all banned peers (needs codebase update)
-
-		* Unban specific peers
-		* Export/Import your ban list
-		* Generate iptables rules (reject banned peers at OS level)
 
 ## Suggested enhancements for community participation
 
@@ -85,8 +74,10 @@ IP protection doesn't work here. If you use `Apache` you are fine, since the fol
 - [ ] Flag MNs/SNs in peers list
 - [ ] Flag own MNs/SNs on those pages
 
+
+
 ## Donate
 
-If you find the Crown Platform Monitor useful please consider donating to 
-CRWD8e53sZcsL19b28UHqZmGndS4s6yr4gkf
+If you find the Crown Platform Monitor useful please make a donation to 
+[<CRWHoXPTYBrFdSN8fL15jfdAD6iAapHvpUCQ](https://iquidus-01.crownplatform.com/address/CRWHoXPTYBrFdSN8fL15jfdAD6iAapHvpUCQ)
 
