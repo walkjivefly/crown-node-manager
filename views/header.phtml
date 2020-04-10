@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="referrer" content="no-referrer"> 
 
-	<title><?=$title?> - Crown Platform Monitor</title>
+	<title><?=$title?> - Crown Node Manager</title>
 
 	<link href="assets/images/favicon.ico" rel="icon">
 
@@ -35,7 +35,7 @@
 		<div class="col-md-3 left_col">
 		  <div class="left_col scroll-view">
 			<div class="navbar nav_title" style="border-bottom: 1px solid #416182;">
-				<a href="index.php" class="site_title"><i class="fas fa-crown fa-lg" style="color:white"></i> <span>Platform Monitor</span></a>
+				<a href="index.php" class="site_title"><i class="fas fa-crown fa-lg" style="color:white"></i> <span>Node Manager</span></a>
 			</div>
 			<hr>
 			<div class="clearfix"></div>
@@ -45,15 +45,13 @@
 			  <div class="menu_section">
 				<ul class="nav side-menu">
 					<a href="?p=main" <?php if($this->section=="main") echo 'class="active"'; ?>><i class="fas fa-home"></i> Main </a>
-					<!-- <a href="?p=wallet" <?php if($this->section=="wallet") echo 'class="active"'; ?>><i class="fas fa-wallet"></i> Wallet </a>
-					-->
+					<a href="?p=wallet" <?php if($this->section=="wallet") echo 'class="active"'; ?>><i class="fas fa-wallet"></i> Wallet </a>
 					<a href="?p=peers" <?php if($this->section=="peers") echo 'class="active"'; ?>><i class="fas fa-user-friends"></i> Peers </a>
-					<!-- <ul class="nav child_menu" style="display: block;">
+					<ul class="nav child_menu" style="display: block;">
 						<li <?php if($this->section=="rules") echo 'class="active"'; ?>><a href="?p=rules">Rules</a></li>
 						<li <?php if($this->section=="hoster") echo 'class="active"'; ?>><a href="?p=hoster">Hoster</a></li>
 					</ul>
 					<a href="?p=banlist" <?php if($this->section=="banlist") echo 'class="active"'; ?>><i class="fas fa-ban"></i> Ban List </a>
-					-->
 					<a href="?p=blocks" <?php if($this->section=="blocks") echo 'class="active"'; ?>><i class="fas fa-cube"></i> Blocks</a>
 					<ul class="nav child_menu" style="display: block;">
 						<li <?php if($this->section=="forks") echo 'class="active"'; ?>><a href="?p=forks">Forks</a></li>
@@ -65,8 +63,7 @@
 					<a href="?p=systemnodes" <?php if($this->section=="systemnodes") echo 'class="active"'; ?>><i class="fas fa-sitemap"></i> Systemnodes </a>
 					<a href="?p=proposals" <?php if($this->section=="proposals") echo 'class="active"'; ?>><i class="far fa-paper-plane"></i> Proposals </a>
 					<a href="?p=sporks" <?php if($this->section=="sporks") echo 'class="active"'; ?>><i class="fas fa-wrench"></i> Sporks </a>
-					<!-- <a href="?p=settings" <?php if($this->section=="settings") echo 'class="active"'; ?>><i class="fas fa-cog"></i> Settings </a>
-					-->
+					<a href="?p=settings" <?php if($this->section=="settings") echo 'class="active"'; ?>><i class="fas fa-cog"></i> Settings </a>
 					<a href="?p=about" <?php if($this->section=="about") echo 'class="active"'; ?>><i class="fas fa-info"></i> About </a>
 				</ul>
 			  </div>

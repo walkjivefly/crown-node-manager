@@ -1,8 +1,8 @@
-# Crown Platform Monitor Beta
+# Crown Node Manager Beta
 
 ![](https://i.imgur.com/x4FZMVC.png)
 
-Crown Platform Monitor (CPM) is a lightweight dashboard and monitoring system for your Crown node.
+Crown Node Manager (CNM) is a lightweight dashboard and control system for your Crown node.
 
 
 ## Features
@@ -13,22 +13,24 @@ Crown Platform Monitor (CPM) is a lightweight dashboard and monitoring system fo
 * Manage a list of web hosters to detect if peer is hosted or private
 * Overview of the last received blocks
 * Overview of the last received forks (orphaned blocks / alternative chains)
-* Overview of the memory pool and containing transactions
+* Overview of the memory pool and inflight transactions
 * Overview of NFT framework protocols and tokens
 * Overview of masternodes and systemnodes
+* Overview of active proposals
+* Overview of sporks
 
 ## Requirements
 
-* Crown Core 0.13.9.3+
+* Crown Core 0.14+
 * Web server (e.g. Apache, PHP built-in web server)
 * PHP 7.0.0+
 * cURL
 
 ## Installation
 
-1. Download Crown Platform Monitor either from [here](https://github.com/walkjivefly/crown-node-manager/releases) or by cloning this  repository.
+1. Download Crown Node Manager either from [here](https://github.com/walkjivefly/crown-node-manager/releases) or by cloning this  repository.
 2. Edit `src/Config.php` to enter your crownd RPC credentials, set a password and change other settings.
-3. Upload the folder to the public directory of your web server. If the folder is accesible via the internet, I recommend renaming the folder to something unique. Although CPM is password protected and access can be limited to a specific IP, there can be security flaws and bugs.
+3. Upload the folder to the public directory of your web server. If the folder is accesible via the internet, I recommend renaming the folder to something unique. Although CNM is password protected and access can be limited to a specific IP, there can be security flaws and bugs.
 4. Open the URL to the folder in your browser and login with the password choosen in `src/Config.php`.
 5. Optional: Run `chmod -R 770 /path-to-folder/{data, src, views}`. Only necessary for non Apache (`AllowOverride All` necessary) and publicly accessible web server. For more information, read next section.
 
@@ -36,14 +38,12 @@ Crown Platform Monitor (CPM) is a lightweight dashboard and monitoring system fo
 
 * All pages and control functionality are only accessible for logged in users. The only exception is if you use the `Run Rules' cron job functionality. But a password based token is required
 and the functionality is only able to apply rules. 
-* Access to CPM is by default limited to localhost. This can be expanded to a specific IP or disabled. If disabled, make sure to protect the CPM folder (.htaccess, rename it to something unique 
+* Access to CNM is by default limited to localhost. This can be expanded to a specific IP or disabled. If disabled, make sure to protect the CNM folder (.htaccess, rename it to something unique 
 that an attacker will not guess). An attacker could "guess" your password, since there is no build-in brute force protection (if IP protection is disabled).
 * The `data` folder contains your rules, logs and geo information about your peers. Make sure to protect (e.g. `chmod -R 770 data`) this sensitive information if your web server is publicly accessible. The previously mentioned
 IP protection doesn't work here. If you use `Apache` you are fine, since the folder is protected with `.htaccess` (make sure `AllowOverride All` is set in your `apache2.conf` file).
 
 ## Roadmap
-
-- [ ] Fix sorting/searching in protocol/NFT/MN/SN pages
 
 - [ ] NFT protocol and token pages enhancements
 
@@ -87,6 +87,6 @@ IP protection doesn't work here. If you use `Apache` you are fine, since the fol
 
 ## Donate
 
-If you find the Crown Platform Monitor useful please consider donating to 
-CRWD8e53sZcsL19b28UHqZmGndS4s6yr4gkf
+If you find the Crown Node Manager useful please make a donation to 
+CRWTo9YAXM1gg3hSqs61T9AmHiia1jWFtfWn
 
