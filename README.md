@@ -78,6 +78,6 @@ IP protection doesn't work here. If you use `Apache` you are fine, since the fol
 
 ## Donate
 
-If you find the Crown Platform Monitor useful please make a donation to 
-[<CRWHoXPTYBrFdSN8fL15jfdAD6iAapHvpUCQ](https://iquidus-01.crownplatform.com/address/CRWHoXPTYBrFdSN8fL15jfdAD6iAapHvpUCQ)
+If you find the Crown Platform Monitor useful I'm happy to accept donations at 
+[CRWHoXPTYBrFdSN8fL15jfdAD6iAapHvpUCQ](https://iquidus-01.crownplatform.com/address/CRWHoXPTYBrFdSN8fL15jfdAD6iAapHvpUCQ)
 
