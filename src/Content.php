@@ -324,7 +324,7 @@ function createNftProtocolsContent($count = 20, $skip = 0, $height = "*", $txonl
 	return $content;
 }
 
-function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0, $height = "*"){
+function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0, $height = "*", $comp = false){
 	global $crownd;
 	try{
 		$content['nftokens'] = $crownd->nftoken("list", $protocol, $owner, $count, $skip, $height);
@@ -334,6 +334,11 @@ function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0
 				break;
 			}
 			$content["nftokens"][$i]["timestamp"] = getDateTime($token["timestamp"]);
+			if($comp == true 
+				&& strncasecmp("http://", $token["metadata"], 7) != 0
+				&& strncasecmp("https://", $token["metadata"], 8) != 0){
+				$content["nftokens"][$i]["metadata"] = "http://" . $token["metadata"];
+			}
 			$i++;
 		}
 		$content['nftCount'] = $i;
@@ -347,7 +352,6 @@ function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0
 		$content['totalsupply'] = "N/A";
 		$content['nftCount'] = "N/A";
 	};
-	//$content['node'] = new Node();
 	return $content;
 }
 

@@ -80,263 +80,12 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 // Peers Page   
 }elseif($_GET['p'] == "peers") {
 	
-	// Check if command
-	if(isset($_GET['c']) AND $_GET['t'] == $_SESSION["csfrToken"]){
-		// Ban Command
-		if($_GET['c'] == "ban"){
-			$err = 0;
-			if(preg_match("/^([0-9a-z:\.]{7,39})$/", $_GET['ip'], $match)) {
-				$ip = $match[1];
-			}else{
-				$err += 1;
-			}
-			if(is_numeric($_GET['time'])) {
-				$bantime = intval($_GET['time']);
-			}else{
-				$err += 1;
-			}
-			if($err == 0){
-				try {
-					$result = $crownd->setban($ip, "add", $bantime);
-					// Sleep necessary otherwise peer is still returned by Crown core
-					sleep(1);
-					$message = "Peer successfully banned";
-				} catch (\Exception $e) {
-					$error = "Peer could not be banned";
-				}
-			}else{
-				$error = "Invalid Peer/Ban time";
-			}
-			
-		// Disconnect Command
-		}elseif($_GET['c'] == "disconnect"){
-			if(preg_match("/^(\[{0,1}[0-9a-z:\.]{7,39}\]{0,1}:[0-9]{1,5})$/", $_GET['ip'], $match)) {
-				$ip = $match[1];
-				try {
-					$result = $crownd->disconnectnode($ip);
-					// Sleep necessary otherwise peer is still returned by Crown core
-					sleep(1);
-					$message = "Peer successfully disconnected";
-				} catch (\Exception $e) {
-					$error = "Peer could not be found";
-				}
-			}
-		// Add Hoster Command
-		}elseif($_GET['c'] == "addhoster"){
-			if(preg_match("/^[0-9a-zA-Z-,\. ]{3,40}$/", $_GET['n'])) {
-				$hosterJson = file_get_contents('data/hoster.json');
-				$hoster = json_decode($hosterJson);
-				$hoster[] = array($_GET['n']);
-				file_put_contents('data/hoster.json',json_encode($hoster));
-				updateHosted($_GET['n'], true);
-				$message = "Hoster succesfully added";	
-			}else{
-				$error = "Invalid Hoster";
-			}
-
-			if(preg_match("/^[0-9a-zA-Z-,\. ]{3,40}$/", $_GET['n'])) {
-				if(!in_array($_GET['n'], $hosterList)){
-					$hosterList[] = $_GET['n'];
-					file_put_contents('data/hoster.json',json_encode($hosterList));
-					updateHosted($_GET['n'], true);
-					$message = "Hoster succesfully added"; 
-				}else{
-					$error = "Hoster already in list";
-				}
-			}else{
-				$error = "Invalid Hoster";
-			}
-
-			
-		}
-		// Apply rules		  
-		elseif($_GET['c'] == "run"){
-			try{
-				Rule::run();
-			}catch(\Exception $e){
-				$error = "Error while running rules";
-			}
-			if(empty($e)){
-				$message = "Rules succesfully run. See log file for details";
-			}
-		}
-	}
 	// Information for header
 	$content = createPeerContent();
 	
 	// Create page specfic variables
 	$data = array('section' => 'peers', 'title' => 'Peers', 'content' => $content);
 
-// Hoster Page	
-}elseif($_GET['p'] == "hoster") {	
-	
-	$hosterList = json_decode(file_get_contents('data/hoster.json'),true);
-
-	if(isset($_GET['c']) AND $_GET['t'] == $_SESSION["csfrToken"]){
-	// Remove Hoster Command
-		if($_GET['c'] == "remove"){
-			if(preg_match("/^[0-9a-zA-Z-,\. ]{3,40}$/", $_GET['n'])) {
-				if(($key = array_search($_GET['n'], $hosterList)) != false) {
-					unset($hosterList[$key]);
-					file_put_contents('data/hoster.json',json_encode($hosterList)); 
-					updateHosted($_GET['n'], false);
-					$message = "Hoster succesfully removed";  
-				}else{
-					$error = "Hoster not found";	
-				}			
-			}else{
-				$error = "Invalid Hoster";
-			}
-	   // Add Hoster Command
-		}elseif($_GET['c'] == "add"){
-			if(preg_match("/^[0-9a-zA-Z-,\. ]{3,40}$/", $_GET['n'])) {
-				if(!in_array($_GET['n'], $hosterList)){
-					$hosterList[] = $_GET['n'];
-					file_put_contents('data/hoster.json',json_encode($hosterList));
-					updateHosted($_GET['n'], true);
-					$message = "Hoster succesfully added"; 
-				}else{
-					$error = "Hoster already in list";
-				}
-			}else{
-				$error = "Invalid Hoster";
-			}
-		}
-	}
-	
-	$content = json_decode(file_get_contents('data/hoster.json'), TRUE);
-	// Sort Hoster ascending
-	natcasesort($content);
-	
-	// Create page specfic variables
-	$data = array('section' => 'hoster', 'title' => 'Hoster Manager', 'content' => $content);
-	
-// Ban List Page	
-}elseif($_GET['p'] == "banlist") {
-	
-	// Check if commands needs to be run   
-	if(isset($_GET['c']) AND $_GET['t'] == $_SESSION["csfrToken"]){	  
-		if($_GET['c'] == "unban"){
-			if(preg_match("/^([0-9a-z:\.]{7,39}\/[0-9]{1,3})$/", $_GET['ip'], $match)) {
-				$ip = $match[1];
-				try {
-					$result = $crownd->setban($ip, "remove");
-					$message = "Node successfully unbanned";
-				} catch (\Exception $e) {
-					$error = "Node could not be unbanned";
-				}
-			}else{
-				$error = "Invalid Node";
-			}
-		}elseif($_GET['c'] == "clearlist"){
-			try {
-				$result = $crownd->clearbanned();
-				$message = "Banlist cleared";
-			} catch (\Exception $e) {
-				$error = "Could not clear banlist";
-			}
-		}elseif($_GET['c'] == "importbanlist"){
-			try {
-				$imNa = $_FILES['banlist']['tmp_name'];
-				$banlist = array_map('str_getcsv', file($imNa));
-				unlink($imNa);
-				$i = 0;
-				foreach($banlist as $ban){
-					$timestamp = strtotime($ban[2]);
-					if(checkIpBanList($ban[0]) AND $timestamp !== FALSE){
-						$result = $crownd->setban($ban[0], "add", $timestamp, true);
-						$i++;
-					}
-				}
-				if($i !== 0){
-					$message = "Banlist imported";
-				}else{
-					$error = "No valid data in file";
-				}
-			} catch (\Exception $e) {
-				$error = "IPs already banned or node offline";
-			}
-		}
-	}
-	
-	// Create ban list info
-	$content = createBanListContent();
-	$data = array('section' => 'banlist', 'title' => 'Ban List', 'content' => $content);  
-
-// Rules Page
-}elseif($_GET['p'] == "rules") {
-	
-	$editID = NULL;
-	// Check if commands needs to be run   
-	if(isset($_GET['c'])  AND $_GET['t'] == $_SESSION["csfrToken"]){	  
-		// Save new or edited rule	
-		if($_GET['c'] == "save"){			
-			$rule = new Rule();
-			$response = $rule->save($_POST);
-				if($response){
-					$message = "Rule succesfully saved";
-				}else{
-					$error = "Invalid rule data";
-				}
- 		// Apply rules		  
-		}elseif($_GET['c'] == "run"){
-			try{
-				Rule::run();
-			}catch(\Exception $e){
-				$error = "Error while running rules";
-			}
-			if(empty($e)){
-				$message = "Rules succesfully run. See log file for details";
-			}
- 		// Edit rule		   
-		}elseif($_GET['c'] == "edit"){
-			if(ctype_digit($_GET['id'])){
-				$editID = $_GET['id'];
-			}else{
-				$error = "Invalid rule ID";
-			}
- 		// Delete single rule or all		  
-		}elseif($_GET['c'] == "delete"){		 
-			if(isset($_GET['id']) AND ctype_digit($_GET['id'])){
-				$reponse =  Rule::deleteByID($_GET['id']);
-				if($reponse){
-					$message = "Rule succesfully deleted";					
-				}else{
-					$error = "Could not delete rule";   
-			   }
-			}elseif(!isset($_GET['id'])){
-			   $reponse =  Rule::deleteAll();
-				if($reponse){
-					$message = "Rules succesfully deleted";					
-				}else{
-					$error = "Could not delete rules";   
-			   }
-			}else{
-			   $error = "Invalid rule ID";
-			}
-		// Reset rule counter
-		}elseif($_GET['c'] == "resetc"){
-			$reponse =  Rule::resetCounter();
-			if($reponse){
-					$message = "Counter succesfully reseted";					
-			}else{
-					$error = "Could not reseted counter";   
-			}			
-		// Delete logfile
-		}elseif($_GET['c'] == "dellog"){
-			$reponse =  Rule::deleteLogfile();
-			if($reponse){
-					$message = "Logfile succesfully deleted";					
-			}else{
-					$error = "Could not delete logfile";   
-			}
-		}
-	}
-	
-	$content = createRulesContent($editID);
-	
-	$data = array('section' => 'rules', 'title' => 'Rules Manager', 'content' => $content); 
-	 
 // Memory Pool Page	
 }elseif($_GET['p'] == "mempool") {
 	
@@ -395,6 +144,16 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 	$content = createNftsContent($p1, $p2, $p3, $p4, $p5);
 	$data = array('section' => 'nfts', 'title' => 'NFTs', 'content' => $content);  
  
+// NFT competition page 
+}elseif($_GET['p'] == "competition") {
+	$p1 = "nftcomp";
+	$p2 = "*";
+	$p3 = (string)Config::DISPLAY_TOKENS;
+	$p4 = "0";
+	$p5 = "*";
+	$content = createNftsContent($p1, $p2, $p3, $p4, $p5, true);
+	$data = array('section' => 'competition', 'title' => 'NFT competition', 'content' => $content);  
+ 
 // Masternodes Page
 }elseif($_GET['p'] == "masternodes") {
 	$content = createNodesContent("MN");
@@ -405,12 +164,11 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 	$content = createNodesContent("SN");
 	$data = array('section' => 'systemnodes', 'title' => 'Systemnodes', 'content' => $content);  
  
-// Wallet Page
-}elseif($_GET['p'] == "wallet") {
-	
-	$content = createUnspentContent();
-	$data = array('section' => 'wallet', 'title' => 'Wallet Overview', 'content' => $content);  
- 
+// Proposals Page
+}elseif($_GET['p'] == "proposals") {
+	$content = createGovernanceContent();
+	$data = array('section' => 'proposals', 'title' => 'Proposals', 'content' => $content);
+
 // Blocks Page 
 }elseif($_GET['p'] == "blocks") {
 	$content= createBlocksContent();
