@@ -36,9 +36,11 @@ function createMainContent(){
 	try{
 		$content['nfProtosCount'] = $crownd->nftproto('totalsupply');
 		$content['nftCount'] = $crownd->nftoken('totalsupply');
+		$content['compCount'] = $crownd->nftoken('totalsupply','nftcomp');
 	}catch(\Exception $e){
 		$content['nfProtosCount'] = "N/A";
 		$content['nftCount'] = "N/A";
+		$content['compCount'] = "N/A";
 	}
 	$content['node'] = new Node();
 	if(Config::PEERS_GEO){
@@ -387,7 +389,7 @@ function createNodesContent($type){
 		}
 		$i++;
 	}
-
+	//$nodes = createMSNodesGeo($nodes);
 	return $content;
 }
 
