@@ -260,9 +260,9 @@ function getBanReason($banreason){
 	return $banreason;
 }
 
-	function 	getCleanClient($client){
-	$client =  ltrim($client,"/");
-	$client =  rtrim($client,"/");
+function getCleanClient($client){
+	$client = ltrim($client,"/");
+	$client = rtrim($client,"/");
 	return $client;
 	if(preg_match("/^Crown Core:([0]\.[0-9]{1,2}\.[0-9]{1,2})/",$client, $matches)) {
 		$client = "Core ".$matches[1];
@@ -405,7 +405,6 @@ function getPeerData(bool $geo = NULL){
 	}
 	
 	$peerInfo = $crownd->getpeerinfo(); 
-
 	if($geo){
 		$peers = createPeersGeo($peerInfo);
 	}else{
@@ -567,7 +566,6 @@ function createPeersGeo($peerinfo){
 	
 		// Adds peer to peer array
 		$peers[] = $peerObj;
-
 	}
 
 	// Removes all peers that the node is not connected to anymore.
@@ -579,8 +577,112 @@ function createPeersGeo($peerinfo){
 
 	$newSerializePeers = serialize($arrayPeers);
 	file_put_contents('data/geodatapeers.inc', $newSerializePeers);
-	
+		
 	return $peers;
+}
+
+function createMSNodesGeo($nodes){
+	global $countryList;
+	global $hosterCount;
+	global $privateCount;
+	global $newNodesCount;
+	
+	$noGeoData = false;
+	
+	// Check if peer file exists and enabled
+	if (file_exists('data/geodatanodes.inc')){
+		// Loads serialized stored nodes from disk
+		$serializedNodes = file_get_contents('data/geodatanodes.inc');
+		$arrayNodes = unserialize($serializedNodes);
+	}else{
+		$noGeoData = true;
+	}
+	
+	// Find IPs that we don't have geo data for
+	// First interation through all nodes is used to collect IPs for geo api call. This way the batch functionality can be used
+	$ips = [];
+	foreach($nodes as &$node){
+		if ($noGeoData OR !in_array($node["IP"],array_column($arrayNodes,0))){
+			$ips[] = $node["IP"];
+		}
+	}
+	unset($node);
+	
+	if(!empty($ips)){
+		$ipData = getIpData($ips);
+	}
+	// 2nd interation through nodes to create final node list for output
+	foreach($nodes as $node){
+		// Creates new node object
+		$nodeObj = new MSNode($node);
+		// Checks if node is new or if we can read data from disk (geodatanodes.inc)
+		if($noGeoData OR !in_array($nodeObj->IP,array_column($arrayNodes,0))){	   
+			if(isset($ipData[0])){
+				$newNodesCount++;
+				
+				$countryInfo = $ipData[array_search($nodeObj->IP, array_column($ipData, 'query'))];
+				$countryCode = checkCountryCode($countryInfo['countryCode']);
+				$country = checkString($countryInfo['country']);
+				$region = checkString($countryInfo['regionName']);
+				$city = checkString($countryInfo['country']);
+				$isp = checkString($countryInfo['isp']);		 
+				$hosted = checkHosted($isp);
+				// Adds the new node to the save list
+				$arrayNodes[$nodeObj->id] = array($nodeObj->IP, $countryCode, $country, $region, $city, $isp, $hosted, 1);
+			}else{
+				// If IP-Api.com call failed we set all data to Unknown and don't store the data
+				$countryCode = "UN";
+				$country = "Unknown";
+				$region = "Unknown";
+				$city = "Unknown";
+				$isp = "Unknown";		 
+				$hosted = false;
+				// Only counted for peers older than 2 minutes
+				$newNodesCount++;				
+			}
+		}else{
+			$id = $nodeObj->id;
+			// Nodes that we know about but reconnected
+			if(!isset($arrayNodes[$id])){
+				$id = array_search($nodeObj->IP, array_column($arrayNodes,0));
+				$id = array_keys($arrayNodes)[$id];
+			}
+			$countryCode = $arrayNodes[$id][1];
+			$country = $arrayNodes[$id][2];
+			$region = $arrayNodes[$id][3];
+			$city = $arrayNodes[$id][4];
+			$isp = $arrayNodes[$id][5];
+			$hosted = $arrayNodes[$id][6];
+			$arrayNodes[$id][7] = 1;
+		}
+
+		// Counts the countries
+		if(isset($countryList[$country])){	   
+			$countryList[$country]['count']++;
+		}else{
+			$countryList[$country]['code'] = $countryCode;
+			$countryList[$country]['count'] = 1;
+		}
+
+		// Adds country data to node object
+		$nodeObj->countryCode = $countryCode;
+		$nodeObj->country = $country;
+		$nodeObj->region = $region;
+		$nodeObj->city = $city;
+		$nodeObj->isp = $isp;
+		$nodeObj->hosted = $hosted;
+		if($hosted){
+			$hosterCount++;
+		}else{
+			$privateCount++;
+		}
+		// Adds node to nodes array
+		$newnodes[] = $nodeObj;
+	}
+
+	$newSerializeNodes = serialize($arrayNodes);
+	file_put_contents('data/geodatanodes.inc', $newSerializeNodes);
+	return $newnodes;
 }
 
 function getIpData($ips){

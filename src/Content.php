@@ -374,22 +374,31 @@ function createNodesContent($type){
 
 	$content["LastWinner"] = $LastWinner["pubkey"];
 	$i = 0;
-	foreach($nodes as $txid => $node){
+	foreach($nodes as $txid => $tnode){
 		if($i == Config::DISPLAY_NODES){
 			break;
 		}
-		list($content["node"][$i]["txid"], $unused) = explode("-", $txid);
-		list($content["node"][$i]["status"],$content["node"][$i]["protocol"],$content["node"][$i]["address"],
-			$content["node"][$i]["IP"], $content["node"][$i]["lastseen"],$content["node"][$i]["activetime"],
-			$content["node"][$i]["lastpaid"]) = sscanf($node, "%s %s %s %s %d %d %d");
-		$content["node"][$i]["lastseen"] = getDateTime($content["node"][$i]["lastseen"]);
-		$content["node"][$i]["lastpaid"] = getDateTime($content["node"][$i]["lastpaid"]);
+		$node["id"] = $txid;
+		$node["type"] = $type;
+		list($node["txid"], $unused) = explode("-", $txid);
+		list($status,$protocol,$address,$ip,$lastseen,$activetime,$lastpaid) = sscanf($tnode, "%s %s %s %s %d %d %d");
+		$node["status"] = $status;
+		$node["protocol"] = $protocol;
+		$node["address"] = $address;
+		$node["IP"] = preg_replace("/:[0-9]{1,5}$/", "", $ip);
+		$node["lastseen"] = getDateTime($lastseen);
+		$node["lastpaid"] = getDateTime($lastpaid);
 		if(Config::HUMAN_TIMES) {
-			$content["node"][$i]["activetime"] = secondsToHuman($content["node"][$i]["activetime"]);
+			$node["activetime"] = secondsToHuman($activetime);
+		}else{
+			$node["activetime"] = $activetime;
 		}
+		$msnodes[] = $node;
 		$i++;
 	}
-	//$nodes = createMSNodesGeo($nodes);
+	$content["nodes"] = createMSNodesGeo($msnodes);
+	$content['geo'] = Config::PEERS_GEO;
+
 	return $content;
 }
 
