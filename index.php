@@ -49,9 +49,9 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] === TRUE){
 		}
 
 // Not logged in or invalid data
-}else{
-	header('Location: login.html');
-	exit; 	
+//}else{
+//	header('Location: login.html');
+//	exit; 	
 }
 
 // Load ulitily and content creator functions
@@ -151,8 +151,18 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 	$p3 = (string)Config::DISPLAY_TOKENS;
 	$p4 = "0";
 	$p5 = "*";
-	$content = createNftsContent($p1, $p2, $p3, $p4, $p5, true);
+	$content = createNftsContent($p1, $p2, $p3, $p4, $p5);
 	$data = array('section' => 'competition', 'title' => 'NFT competition', 'content' => $content);  
+ 
+// CRWcards page 
+}elseif($_GET['p'] == "crwcards") {
+	$p1 = "ccc";
+	$p2 = "*";
+	$p3 = (string)Config::DISPLAY_TOKENS;
+	$p4 = "0";
+	$p5 = "*";
+	$content = createNftsContent($p1, $p2, $p3, $p4, $p5);
+	$data = array('section' => 'crwcards', 'title' => 'Crown Cards', 'content' => $content);  
  
 // Masternodes Page
 }elseif($_GET['p'] == "masternodes") {

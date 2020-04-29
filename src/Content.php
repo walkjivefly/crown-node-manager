@@ -326,7 +326,7 @@ function createNftProtocolsContent($count = 20, $skip = 0, $height = "*", $txonl
 	return $content;
 }
 
-function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0, $height = "*", $comp = false){
+function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0, $height = "*"){
 	global $crownd;
 	try{
 		$content['nftokens'] = $crownd->nftoken("list", $protocol, $owner, $count, $skip, $height);
@@ -336,10 +336,23 @@ function createNftsContent($protocol = "*", $owner = "*", $count = 20, $skip = 0
 				break;
 			}
 			$content["nftokens"][$i]["timestamp"] = getDateTime($token["timestamp"]);
-			if($comp == true 
+			if($protocol == "nftcomp"  
 				&& strncasecmp("http://", $token["metadata"], 7) != 0
 				&& strncasecmp("https://", $token["metadata"], 8) != 0){
 				$content["nftokens"][$i]["metadata"] = "http://" . $token["metadata"];
+			}	
+			if($protocol == "ccc"){
+				$metadata = trim($token["metadata"], "{}");
+				list($type, $metadata) = explode("{", $metadata);
+				$content["nftokens"][$i]["cccType"] = substr($type, 0, strpos($type, "Details"));
+				$metadata = trim($metadata, "{}");
+				list($username, $address, $tier, $xxhash, $version, $date, $active) = explode(",", $metadata);
+				$content["nftokens"][$i]["cccUsername"] = substr($username, strpos($username, ":") + 1); 
+				$content["nftokens"][$i]["cccWalletAddress"] = substr($address, strpos($address, ":") + 1); 
+				$content["nftokens"][$i]["cccTier"] = substr($tier, strpos($tier, ":") + 1); 
+				$content["nftokens"][$i]["cccVersion"] = substr($version, strpos($version, ":") + 1); 
+				$content["nftokens"][$i]["cccCreationDate"] = substr($date, strpos($date, ":") + 1); 
+				$content["nftokens"][$i]["cccActive"] = substr($active, strpos($active, ":") + 1); 
 			}
 			$i++;
 		}
