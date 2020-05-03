@@ -92,6 +92,57 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="clearfix"></div>
+			<div class="row">
+
+			<?php if($content['geo']){?>  
+			<!-- World Map -->  
+			<div class="col-md-10 col-sm-10 col-xs-12">
+			  <div class="x_panel">
+				<div class="x_title">
+				  <h2>Global Masternode Distribution</h2>
+				  <ul class="nav navbar-right panel_toolbox">
+					<li><a class="close-link"><i class="fas fa-times"></i></a>
+					</li><li><a class="collapse-link"><i class="fas fa-chevron-up"></i></a>
+					</li>
+
+				  </ul>
+				  <div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+				  <div class="dashboard-widget-content">
+					<div class="col-md-4 hidden-small">
+					  <table class="countries_list">
+						<tbody>   
+						<?php $i = 1;
+						foreach($content['map']['desc'] as $cName => $country){
+						?>
+							<tr>
+								<td style="padding-right:0px;width:33px"><?= $i ?>.</td><td style="padding-left:0px;padding-right:0px;width:32px"><img src="assets/images/flags/16/<?= $cName ?>.png" /></td><td style="padding-left:2px;"> <?= $cName ?></td><td style="padding-right:0px;width:35px"><?= $country['count'] ?></td><td style="padding-left:0px;padding-right:0px;width:45px">(<?= $country['share'] ?>%)</td>									 
+							</tr>
+						<?php 
+							$i++; 
+						} 
+						?>
+						</tbody>
+					  </table>
+					</div>
+					<div id="world-map-gdp" class="col-md-8 col-sm-12 col-xs-12" style="height:330px;"></div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<!-- World Map End -->
+			<?php } ?>
+
+			
+			
+ 
+			</div>
+		   </div>
+
+
 		<!-- /page content -->
 		</div>
 
@@ -127,6 +178,41 @@
 	  		});
 		</script>
 		<!-- /Datatables -->
+
+		<?php
+	if($content['geo']){
+		echo "<script>".$content['map']['data']."</script>";
+	?>
+		<!-- JQVMap -->
+		<script src="assets/js/jquery.vmap.min.js"></script>
+		<script src="assets/js/jquery.vmap.world.js"></script>
+		<script>
+		  $(document).ready(function(){
+			$('#world-map-gdp').vectorMap({
+				map: 'world_en',
+				backgroundColor: null,
+				color: '#ffffff',
+				hoverOpacity: 0.7,
+				selectedColor: '#666666',
+				enableZoom: false,
+				showTooltip: true,
+				values: peerData,
+				onLabelShow: function (event, label, code) {
+					if (peerData[code]!==undefined)
+					{
+						label.append(' ('+peerData[code]+')'); 
+					} else {
+						label.append(' (No Peers)'); 
+				   }				
+				},
+				scaleColors: ['#9ac6e5', '#2a70a2'],
+				normalizeFunction: 'polynomial'
+			});
+		  });
+		</script>
+		<!-- /JQVMap -->
+	<?php } ?>
+
 
   	</body>
 </html>

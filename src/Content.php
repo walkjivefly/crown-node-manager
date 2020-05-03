@@ -411,6 +411,9 @@ function createNodesContent($type){
 	}
 	$content["nodes"] = createMSNodesGeo($msnodes);
 	$content['geo'] = Config::PEERS_GEO;
+	if(Config::PEERS_GEO){
+		$content['map'] = createMapJs($i);
+	}
 
 	return $content;
 }
