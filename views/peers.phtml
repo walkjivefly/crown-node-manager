@@ -69,7 +69,6 @@
 						  		<th>Age <span style="font-weight:normal;">(m)</span></th>
 						  		<th>Client</th>
 						  		<th>Traffic <span style="font-weight:normal;">(MB)</span></th>
-						  		<th style="min-width:80px;">Info</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -92,20 +91,6 @@
 									<td> <?= $peer->age ?></td>
 									<td><?php if($peer->snoopy){ ?><i class="fa fa-binoculars"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->client,0,20) ?></td>  
 									<td> <?= $peer->traffic ?></td>
-									<td>
-										<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
-											<button type="button" class="btn btn-default btn-xs">Details</button>
-											<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												<span class="caret"></span>
-												<span class="sr-only">Toggle Dropdown</span>
-											</button>
-											<ul class="dropdown-menu">
-												<li><a href="http://ip-api.com/#<?= $peer->ip ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Whois</a></li>
-												<li><a href="https://duckduckgo.com/?q=<?= $peer->ip ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:lightblue"></i> DuckDuckGo</a></li>												  
-												<li><a href="https://www.abuseipdb.com/check/<?= $peer->ip ?>" target="_blank"><i class="fa fa-search-minus fa-lg" style="color:lightblue"></i> AbuseIP DB</a></li>
-											</ul>
-										</div>										   
-								  	</td>										   
 								</tr>  
 							<?php } ?>						
 					  	</tbody>
