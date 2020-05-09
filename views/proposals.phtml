@@ -61,16 +61,17 @@
 							 		<th>Name</th>
 									<th>Passing</th>
 							 		<th>First block</th>
-							 		<th>Payment Count</th>
-									<th>Months Left</th>
+							 		<th>Payments Count</th>
+									<th>Payments Remaining</th>
 									<!-- <th>Payment Address</th> -->
-									<th>Monthly Payment</th>
+									<th>Block Payment</th>
 									<th>Total Payment</th>
 									<th>Yeas</th>
 									<th>Nays</th>
 									<!-- <th>Abstentions</th> -->
 									<th>Margin</th>
-									<th style="width:70px;">Info</th>
+									<th>Copy Voting Commands</th>
+									<th style="width:70px;">Explore</th>
 								</tr>
 					  		</thead>
 							<tbody>
@@ -89,15 +90,18 @@
 										<td><?=$proposal['nays'] ?></td>
 										<!-- <td><?=$proposal['abstains'] ?></td> -->
 										<td><?=$proposal['passingMargin'] ?></td>
+										<td><button onclick="copy('mnbudget vote-many <?= $proposal['hash'] ?> yes')"><i class="fas fa-thumbs-up" style="color:green"></i></button>
+											<button onclick="copy('mnbudget vote-many <?= $proposal['hash'] ?> no')"><i class="fas fa-thumbs-down" style="color:red"></i></button>
+										</td>
 										<td>										   
 											<div class="btn-group pull-right" style="padding:5px 0 3px 0px; margin-bottom:0px">
 												<button type="button" class="btn btn-default btn-xs">Explore</button>
-												<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									  			<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<span class="caret"></span>
 													<span class="sr-only">Toggle Dropdown</span>
 												</button>
 												<ul class="dropdown-menu">
-												    <li><a href="https://iquidus-01.crownplatform.com/tx/<?= $proposal['feeHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus txn</a></li>
+													<li><a href="https://iquidus-01.crownplatform.com/tx/<?= $proposal['feeHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus txn</a></li>
 												    <li><a href="https://iquidus-01.crownplatform.com/address/<?= $proposal['paymentAddress'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Iquidus payment address</a></li>
 													<li><a href="https://insight-02.crownplatform.com/tx/<?= $proposal['feeHash'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight txn</a></li>
 													<li><a href="https://insight-02.crownplatform.com/address/<?= $proposal['paymentAddress'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Insight payment address</a></li>
@@ -117,6 +121,19 @@
 		</div>
 		<!-- /page content -->
 		</div>
+
+		<script>
+		function copy(text) {
+    		var input = document.createElement('input');
+    		input.setAttribute('value', text);
+    		document.body.appendChild(input);
+    		input.select();
+    		var result = document.execCommand('copy');
+			alert("Copied the text: " + text);
+			document.body.removeChild(input);
+    		//return result;
+		 }
+		</script>
 
 		<!-- footer content -->
 		<?php include('views/footer.phtml') ?>
@@ -150,6 +167,5 @@
 	  		});
 		</script>
 		<!-- /Datatables -->
-
   	</body>
 </html>
